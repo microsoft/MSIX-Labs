@@ -1,0 +1,15 @@
+{
+  "Employees": [
+    {
+      "Name": "Janis Zemaitis",
+      "Vacation": "100",
+      "SickLeave": "80",
+      "Salary": "83500",
+      "SalaryIncrease": "5500",
+      "PrevBonus": "6200",
+      "PrevStock": "3200",
+      "Bonus": "7000",
+      "Stock": "3600"
+    }
+  ]
+}

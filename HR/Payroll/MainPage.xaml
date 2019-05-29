@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="Payroll.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Payroll"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="1400"
+    Height="850"
+    MaxHeight="850"
+    MaxWidth="1400"
+    MinHeight="850"
+    MinWidth="1400">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Background.png"/>
+        </Grid.Background>
+    </Grid>
+</Page>

@@ -1,0 +1,3 @@
+[OptionalProjects]
+..\Approvals\Approvals.vcxproj
+..\Employees\Employees.vcxproj

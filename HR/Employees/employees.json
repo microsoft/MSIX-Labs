@@ -1,0 +1,20 @@
+{
+  "Employees": [
+    {
+      "Name": "Sofia Jorgensen",
+      "Salary": "68100"
+    },
+    {
+      "Name": "Leon Hojski",
+      "Salary": "73300"
+    },
+    {
+      "Name": "Isabella Panicucci",
+      "Salary": "78500"
+    },
+    {
+      "Name": "Ajit Haldar",
+      "Salary": "74800"
+    }
+  ]
+}
