@@ -3,11 +3,17 @@ MSIX Labs project is an effort to offer hands-on labs to help people become fami
 
 ## Related training material
 MSIX Training Overview: https://www.microsoft.com/en-us/videoplayer/embed/RE3ig2l
+
 MSIX Training for Developers: https://www.microsoft.com/en-us/videoplayer/embed/RE3i5DH 
+
 MSIX Training Evolving Enhancing Desktop Apps v2: https://www.microsoft.com/en-us/videoplayer/embed/RE3iiD5 
+
 MSIX Training Exercise1: https://www.microsoft.com/en-us/videoplayer/embed/RE3i8dF 
+
 MSIX Training Exercise2: https://www.microsoft.com/en-us/videoplayer/embed/RE3ig21 
+
 MSIX Training Exercise3: https://www.microsoft.com/en-us/videoplayer/embed/RE3iiD7
+
 MSIX Training Exercise4: https://www.microsoft.com/en-us/videoplayer/embed/RE3iiD2 
 
 # Contributing
