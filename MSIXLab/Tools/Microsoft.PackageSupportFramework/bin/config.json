@@ -1,0 +1,36 @@
+{
+    "applications": [
+        {
+            "id": "MYEMPLOYEES",
+            "executable": "VFS\\ProgramFilesX86\\Contoso\\MyEmployees\\MyEmployees.exe",
+            "workingDirectory": "VFS\\ProgramFilesX86\\Contoso\\MyEmployees\\"
+        }
+    ],
+    "processes": [
+        {
+            "executable": "MyEmployees",
+            "fixups": [
+                {
+                    "dll": "FileRedirectionFixup.dll",
+                    "config": {
+                        "redirectedPaths": {
+                            "knownFolders": [
+                                {
+                                    "id": "ProgramFilesX86",
+                                    "relativePaths": [
+                                        {
+                                            "base": "Contoso\\MyEmployees",
+                                            "patterns": [
+                                                ".*\\.txt"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
