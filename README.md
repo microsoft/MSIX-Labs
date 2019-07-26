@@ -16,7 +16,7 @@ MSIX Training Exercise1: https://www.microsoft.com/en-us/videoplayer/embed/RE3i8
 
 MSIX Training Exercise2: https://www.microsoft.com/en-us/videoplayer/embed/RE3ig21 
 
-MSIX Training Exercise3: https://www.microsoft.com/en-us/videoplayer/embed/RE3iiD7
+MSIX Training Exercise3: https://www.microsoft.com/en-us/videoplayer/embed/RE3rc5C
 
 MSIX Training Exercise4: https://www.microsoft.com/en-us/videoplayer/embed/RE3iiD2 
 
