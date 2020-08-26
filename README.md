@@ -3,6 +3,7 @@ MSIX Labs project is an effort to offer hands-on labs to help people become fami
 
 ## Related training material
 The MSIX overview video talks through the core concepts of MSIX.  We recommend watching the overview training video prior to performing the labs.
+
 MSIX Training Overview: https://www.microsoft.com/en-us/videoplayer/embed/RE3ig2l
 
 # Contributing
