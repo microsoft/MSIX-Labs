@@ -9,9 +9,7 @@ namespace ExportDataLibrary
     public class ExportData: IPlugin
     {
         public string Name => throw new NotImplementedException();
-
         public double GetLastResult => throw new NotImplementedException();
-
         public event EventHandler OnExecute;
 
         public void ExceptionTest(string input)
@@ -32,7 +30,7 @@ namespace ExportDataLibrary
 
                 return true;
             }
-            catch (Exception exc)
+            catch (Exception e)
             {
                 return false;
             }
