@@ -1,0 +1,8 @@
+{
+  "isCheckForUpdatesEnabled": "false",
+  "about": {
+    "companyName": "Contoso",
+    "supportLink": "http://www.contoso.com",
+    "supportMail": "support@contoso.com"
+  }
+}
