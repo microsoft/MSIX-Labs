@@ -109,6 +109,12 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppUpdateMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppUpdateMessageBox.designer.cs">
+      <DependentUpon>AppUpdateMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Form1.cs">
@@ -117,10 +123,16 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AppUpdate.cs" />
+    <Compile Include="Helpers\RelaunchHelper.cs" />
+    <Compile Include="Helpers\Scenarios.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppUpdateMessageBox.resx">
+      <DependentUpon>AppUpdateMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

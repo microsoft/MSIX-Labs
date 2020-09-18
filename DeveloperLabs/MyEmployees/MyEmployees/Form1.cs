@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using MyEmployees.Entities;
+using MyEmployees.Helpers;
 using MyEmployees.PluginInterface;
 using Newtonsoft.Json;
 using NLog;
@@ -19,7 +20,10 @@ namespace ExportDataLibrary
         Config config;
         IPlugin plugin;
         Logger logger;
-
+        // Stores the path of a local file containing the new package
+        public static readonly string inputPackageUri = "c:\\temp\\MyEmployees.Package.msixbundle";
+        // Stores the path of a local file containing the version data of the new package
+        public static readonly string inputPackageVersionUri = "c:\\temp\\version.txt";
 
         public Form1()
         {
@@ -73,7 +77,7 @@ namespace ExportDataLibrary
                 config = JsonConvert.DeserializeObject<Config>(json);
 
                 if (!config.IsCheckForUpdatesEnabled)
-                { 
+                {
                     logger.Log(LogLevel.Info, "Check for updates disabled");
                 }
             }
@@ -170,6 +174,11 @@ namespace ExportDataLibrary
                 }
             }
             throw new Exception("Invalid DLL, Interface not found!");
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Scenarios.InitiateAppUpdate();
         }
     }
 }
