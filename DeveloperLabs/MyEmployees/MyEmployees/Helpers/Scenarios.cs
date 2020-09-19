@@ -16,7 +16,7 @@ namespace MyEmployees.Helpers
         static readonly string updateLaterbutton_text = "Update later";
         static readonly string updateAvailable = "There is an update available for My Employees";
         static readonly string upToDate = "My Employees is already up-to-date";
-        static readonly string appName = "My Employees";
+        static readonly string appName = "MyEmployees";
 
         /// <summary>
         /// Implements the UI for the app update scenario 
