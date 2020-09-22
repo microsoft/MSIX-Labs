@@ -124,6 +124,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AppUpdate.cs" />
+    <Compile Include="Helpers\BackgroundUpdateSample.cs" />
     <Compile Include="Helpers\RelaunchHelper.cs" />
     <Compile Include="Helpers\Scenarios.cs" />
     <Compile Include="Program.cs" />

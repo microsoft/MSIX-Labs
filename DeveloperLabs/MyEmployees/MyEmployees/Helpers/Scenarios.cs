@@ -46,5 +46,32 @@ namespace MyEmployees.Helpers
                 MessageBox.Show(upToDate, appName, MessageBoxButtons.OK);
             }
         }
+
+        /// <summary>
+        /// Reads the input packages version data from a local file, and writes the result to the application settings container
+        /// </summary>
+        public static void StoreVersionData()
+        {
+            try
+            {
+                // Can be replaced with a cdn file location ex file://.../version.txt
+                ApplicationData.Current.LocalSettings.Values["newVersion"] = File.ReadAllText(Form1.inputPackageVersionUri);
+            }
+            catch (Exception e)
+            {
+                ApplicationData.Current.LocalSettings.Values["newVersion"] = "0.0.0.0";
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Initiates the scenario background task
+        /// </summary>
+        public static void InitiateBackgroundCheck()
+        {
+            // For permission reasons, StoreVersionData is needed to be called for a file that is stored locally. It is not required to call StoreVersionData for web server locations
+            StoreVersionData();
+            BackgroundUpdateSample.BackgroundTaskImplementation();
+        }
     }
 }

@@ -9,7 +9,7 @@
   <Identity
     Name="MyEmployees"
     Publisher="CN=Contoso Software"
-    Version="1.0.0.1" />
+    Version="1.0.0.2" />
 
   <Properties>
     <DisplayName>MyEmployees</DisplayName>
@@ -39,6 +39,13 @@
         <uap:DefaultTile Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\WideTile.png" Square310x310Logo="Images\LargeTile.png"/>
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundUpdate.BackgroundUpdateTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
 
