@@ -161,6 +161,7 @@
     <Content Include="Images\WideTile.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackgroundUpdate.Head\BackgroundUpdate.Head.csproj" />
     <ProjectReference Include="..\MyEmployees\MyEmployees.csproj" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
