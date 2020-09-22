@@ -89,6 +89,5 @@ namespace MyEmployees
             // Increment progressBar in sync with the progress of the update
             progressBar.Value = (int)args.Progress;
         }
-
     }
 }
