@@ -6,13 +6,13 @@ using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Data.SQLite;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel;
+using Windows.Storage;
 
 namespace ExportDataLibrary
 {
@@ -126,8 +126,8 @@ namespace ExportDataLibrary
                     }
                 }
             }
-
             dataGridView1.DataSource = employeeBindingSource;
+            LoadNewEmployees();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,6 +176,33 @@ namespace ExportDataLibrary
                 }
             }
             throw new Exception("Invalid DLL, Interface not found!");
+        }
+
+        public void LoadNewEmployees()
+        {
+            try
+            {
+                string path = ApplicationData.Current.LocalFolder.Path + "\\Downloadtemp.CSV";
+                var file = File.OpenText(path);
+                var reader = new CsvHelper.CsvReader(file);
+                while (reader.Read())
+                {
+                    Employee employee = new Employee
+                    {
+                        EmployeeId = int.Parse(reader[0].ToString()),
+                        FirstName = reader[1].ToString(),
+                        LastName = reader[2].ToString(),
+                        Email = reader[3].ToString()
+                    };
+                    employeeBindingSource.Add(employee);
+                }
+                dataGridView1.DataSource = employeeBindingSource;
+                file.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)

@@ -64,6 +64,10 @@ namespace MyEmployees.Helpers
         {
             // Reads data from a local setting populated and created by the background task
             bool updateIsFound = (bool)ApplicationData.Current.LocalSettings.Values["isUpdateAvailable"];
+            Program._instance.Invoke(new MethodInvoker(delegate
+            {
+                Program._instance.LoadNewEmployees();
+            }));
             if (updateIsFound)
             {
                 // Pops a toast notification when an update is detected
