@@ -1,5 +1,7 @@
 ﻿using ExportDataLibrary;
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +17,7 @@ namespace MyEmployees.Helpers
         static readonly string updateAvailable = "There is an update available for My Employees";
         static readonly string upToDate = "My Employees is already up-to-date";
         static readonly string appName = "MyEmployees";
+        public static Image shareImage = null;
 
         /// <summary>
         /// Implements the UI for the app update scenario 
@@ -141,6 +144,26 @@ namespace MyEmployees.Helpers
             {
                 MessageBox.Show("The map uri launcher has failed");
             }
+        }
+
+        /// <summary>
+        /// Initiates the scenario share and pops up the standard share UI
+        /// </summary>
+        public static void InitiateShare()
+        {
+            Share.RegisterForSharing(GetMainWindowHandle());
+            ShareDataTransferManager.ShowShareUIForWindow(GetMainWindowHandle());
+        }
+
+        /// <summary>
+        /// Saves an image to the share file in Png format  
+        /// </summary>
+        public static async void SetShareFileAsync()
+        {
+            var localFolder = ApplicationData.Current.LocalFolder;
+            // Creates or replaces ShareImage.png in the ApplicationData's local folder
+            StorageFile sharefile = await localFolder.CreateFileAsync(Share.imageFileName, CreationCollisionOption.ReplaceExisting);
+            shareImage.Save(sharefile.Path, ImageFormat.Png);
         }
     }
 }

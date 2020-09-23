@@ -298,5 +298,19 @@ namespace ExportDataLibrary
                 UploadAndSaveImageAsync();
             }
         }
+
+        private void toolStripSharePicture_Click(object sender, EventArgs e)
+        {
+            Scenarios.shareImage = (Image)dataGridView.Rows[rowClicked].Cells[imgColumn].Value;
+            if (Scenarios.shareImage != null)
+            {
+                Scenarios.SetShareFileAsync();
+                Scenarios.InitiateShare();
+            }
+            else
+            {
+                MessageBox.Show("The image is empty");
+            }
+        }
     }
 }

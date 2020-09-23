@@ -128,11 +128,13 @@
     <Compile Include="Helpers\IInitializeWithWindow.cs" />
     <Compile Include="Helpers\RelaunchHelper.cs" />
     <Compile Include="Helpers\Scenarios.cs" />
+    <Compile Include="Helpers\ShareDataTransferManager.cs" />
     <Compile Include="Helpers\ToastNotification\DesktopNotificationManagerCompat.cs" />
     <Compile Include="Helpers\ToastNotification\MyNotificationActivator.cs" />
     <Compile Include="Helpers\ToastNotification\ToastNotificationSample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Share.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
