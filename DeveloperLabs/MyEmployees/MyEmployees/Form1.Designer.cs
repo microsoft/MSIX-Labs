@@ -35,13 +35,15 @@
             this.Img = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Address = new System.Windows.Forms.DataGridViewLinkColumn();
             this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripViewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripUploadNewPicture = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
@@ -59,7 +61,8 @@
             this.Img,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
-            this.Email});
+            this.Email,
+            this.Address});
             this.dataGridView.DataSource = this.employeeBindingSource;
             this.dataGridView.Location = new System.Drawing.Point(12, 46);
             this.dataGridView.Name = "dataGridView";
@@ -100,7 +103,16 @@
             this.Email.DataPropertyName = "Email";
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
+            this.Email.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Email.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Email.Width = 180;
+            // 
+            // Address
+            // 
+            this.Address.DataPropertyName = "Address";
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
+            this.Address.Width = 200;
             // 
             // employeeBindingSource
             // 
@@ -142,9 +154,17 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripUploadNewPicture});
+            this.toolStripUploadNewPicture,
+            this.toolStripViewPicture});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 70);
+            // 
+            // toolStripViewPicture
+            // 
+            this.toolStripViewPicture.Name = "toolStripViewPicture";
+            this.toolStripViewPicture.Size = new System.Drawing.Size(180, 22);
+            this.toolStripViewPicture.Text = "View picture";
+            this.toolStripViewPicture.Click += new System.EventHandler(this.toolStripViewPicture_Click);
             // 
             // toolStripUploadNewPicture
             // 
@@ -183,13 +203,15 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.BindingSource employeeBindingSource;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolStripViewPicture;
+        private System.Windows.Forms.ToolStripMenuItem toolStripUploadNewPicture;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeId;
         private System.Windows.Forms.DataGridViewImageColumn Img;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem toolStripUploadNewPicture;
+        private System.Windows.Forms.DataGridViewLinkColumn Email;
+        private System.Windows.Forms.DataGridViewLinkColumn Address;
     }
 }
 

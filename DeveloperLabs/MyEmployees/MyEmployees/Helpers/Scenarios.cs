@@ -99,5 +99,48 @@ namespace MyEmployees.Helpers
             StorageFile file = await openPicker.PickSingleFileAsync();
             return file;
         }
+
+        /// <summary>
+        /// Launches the default email app and creates a new message with the specified email address
+        /// </summary>
+        /// <param name="email">The specified email address</param>
+        public static async void LaunchMailApp(string email)
+        {
+            String path = "mailto:" + email;
+            var success = await Windows.System.Launcher.LaunchUriAsync(new Uri(path));
+            if (!success)
+            {
+                MessageBox.Show("The mail uri launcher has failed");
+            }
+        }
+
+        /// <summary>
+        /// Launches the default app associated with the specified file (in this case the Photos app)
+        /// </summary>
+        /// <param name="file">The specified file</param>
+        public static async void LaunchPhotosApp(StorageFile file)
+        {
+            // The URI to launch
+            var success = await Windows.System.Launcher.LaunchFileAsync(file);
+            if (!success)
+            {
+                MessageBox.Show("The file launcher has failed");
+            }
+        }
+
+        /// <summary>
+        /// Launches the Windows Maps app and passes along a query
+        /// </summary>
+        /// <param name="address">The address that is passed as part of the query</param>
+        public static async void LaunchMapsApp(String address)
+        {
+            String query = "?Where=" + address;
+            String path = Path.Combine("bingmaps:", query);
+            var success = await Windows.System.Launcher.LaunchUriAsync(new Uri(path));
+            if (!success)
+            {
+                MessageBox.Show("The map uri launcher has failed");
+            }
+        }
     }
 }

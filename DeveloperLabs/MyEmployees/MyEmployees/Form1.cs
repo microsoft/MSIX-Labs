@@ -28,6 +28,8 @@ namespace ExportDataLibrary
         // Stores the path of a local file containing the version data of the new package
         public static readonly string inputPackageVersionUri = "c:\\temp\\version.txt";
         static readonly int imgColumn = 1;
+        static readonly int emailColumn = 4;
+        static readonly int addressColumn = 5;
         static int rowClicked = 0;
         StorageFile imgFile = null;
 
@@ -124,7 +126,8 @@ namespace ExportDataLibrary
                             EmployeeId = int.Parse(reader[0].ToString()),
                             FirstName = reader[1].ToString(),
                             LastName = reader[2].ToString(),
-                            Email = reader[3].ToString()
+                            Email = reader[3].ToString(),
+                            Address = "One Microsoft Way, Redmond, WA",
                         };
 
                         employeeBindingSource.Add(employee);
@@ -198,7 +201,8 @@ namespace ExportDataLibrary
                         EmployeeId = int.Parse(reader[0].ToString()),
                         FirstName = reader[1].ToString(),
                         LastName = reader[2].ToString(),
-                        Email = reader[3].ToString()
+                        Email = reader[3].ToString(),
+                        Address = "One Microsoft Way, Redmond, WA"
                     };
                     employeeBindingSource.Add(employee);
                 }
@@ -219,10 +223,25 @@ namespace ExportDataLibrary
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             rowClicked = e.RowIndex;
+
             // Checks if the cell clicked is an image cell
             if (e.ColumnIndex == imgColumn)
             {
                 this.contextMenuStrip.Show(Cursor.Position);
+            }
+
+            // Checks if the cell clicked is an email cell
+            if (e.ColumnIndex == emailColumn)
+            {
+                String email = dataGridView.Rows[rowClicked].Cells[emailColumn].Value.ToString();
+                Scenarios.LaunchMailApp(email);
+            }
+
+            // Checks if the cell clicked is an address cell
+            if (e.ColumnIndex == addressColumn)
+            {
+                String address = dataGridView.Rows[rowClicked].Cells[addressColumn].Value.ToString();
+                Scenarios.LaunchMapsApp(address);
             }
         }
 
@@ -252,6 +271,22 @@ namespace ExportDataLibrary
                 {
                     dataGridView.Rows[id].Cells[imgColumn].Value = Image.FromFile(file.Path);
                 }
+            }
+        }
+
+        private async void toolStripViewPicture_Click(object sender, EventArgs e)
+        {
+            String employeeId = rowClicked.ToString();
+            var localFolder = ApplicationData.Current.LocalFolder;
+            try
+
+            {
+                var file = await localFolder.GetFileAsync(employeeId + ".jpg");
+                Scenarios.LaunchPhotosApp(file);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
