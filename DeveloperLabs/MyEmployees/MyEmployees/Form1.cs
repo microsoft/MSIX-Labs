@@ -5,7 +5,9 @@ using MyEmployees.PluginInterface;
 using Newtonsoft.Json;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,6 +27,9 @@ namespace ExportDataLibrary
         public static readonly string inputPackageUri = "c:\\temp\\MyEmployees.Package.msixbundle";
         // Stores the path of a local file containing the version data of the new package
         public static readonly string inputPackageVersionUri = "c:\\temp\\version.txt";
+        static readonly int imgColumn = 1;
+        static int rowClicked = 0;
+        StorageFile imgFile = null;
 
         public Form1()
         {
@@ -126,8 +131,9 @@ namespace ExportDataLibrary
                     }
                 }
             }
-            dataGridView1.DataSource = employeeBindingSource;
+            dataGridView.DataSource = employeeBindingSource;
             LoadNewEmployees();
+            LoadEmployeePictures();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,7 +202,7 @@ namespace ExportDataLibrary
                     };
                     employeeBindingSource.Add(employee);
                 }
-                dataGridView1.DataSource = employeeBindingSource;
+                dataGridView.DataSource = employeeBindingSource;
                 file.Close();
             }
             catch (Exception e)
@@ -208,6 +214,54 @@ namespace ExportDataLibrary
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Scenarios.InitiateAppUpdate();
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            rowClicked = e.RowIndex;
+            // Checks if the cell clicked is an image cell
+            if (e.ColumnIndex == imgColumn)
+            {
+                this.contextMenuStrip.Show(Cursor.Position);
+            }
+        }
+
+        private async void UploadAndSaveImageAsync()
+        {
+            String employeeId = rowClicked.ToString();
+            var localFolder = ApplicationData.Current.LocalFolder;
+            try
+            {
+                StorageFile file = await imgFile.CopyAsync(localFolder, employeeId + ".jpg", NameCollisionOption.ReplaceExisting);
+                dataGridView.Rows[rowClicked].Cells[imgColumn].Value = Image.FromFile(file.Path);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        public async void LoadEmployeePictures()
+        {
+            IReadOnlyList<StorageFile> files = await ApplicationData.Current.LocalFolder.GetFilesAsync();
+            foreach (StorageFile file in files)
+            {
+                String[] fileName = file.Name.Split('.');
+                int id;
+                if (int.TryParse(fileName[0], out id))
+                {
+                    dataGridView.Rows[id].Cells[imgColumn].Value = Image.FromFile(file.Path);
+                }
+            }
+        }
+
+        private async void toolStripUploadNewPicture_Click(object sender, EventArgs e)
+        {
+            imgFile = await Scenarios.PickFileAsync();
+            if (imgFile != null)
+            {
+                UploadAndSaveImageAsync();
+            }
         }
     }
 }

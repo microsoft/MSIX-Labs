@@ -1,9 +1,10 @@
 ﻿using ExportDataLibrary;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace MyEmployees.Helpers
 {
@@ -69,6 +70,34 @@ namespace MyEmployees.Helpers
             // For permission reasons, StoreVersionData is needed to be called for a file that is stored locally. It is not required to call StoreVersionData for web server locations
             StoreVersionData();
             BackgroundUpdateSample.BackgroundTaskImplementation();
+        }
+
+        /// <summary>
+        /// Gets the main window handle of the associated process
+        /// </summary>
+        private static IntPtr GetMainWindowHandle()
+        {
+            return System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+        }
+
+        /// <summary>
+        /// Pops up a file picker that allows the user to pick a single file
+        /// </summary>
+        /// <returns>A StorageFile object that represents the file the user picked</returns>
+        public static async Task<StorageFile> PickFileAsync()
+        {
+            // Creates the picker object and sets some of its properties
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add(".jpeg");
+            openPicker.FileTypeFilter.Add(".png");
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            // Assigns the window handle to the file pickers' UI
+            IInitializeWithWindow initWindow = (IInitializeWithWindow)(object)openPicker;
+            initWindow.Initialize(GetMainWindowHandle());
+            // Opens the file picker for the user to pick a single file
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            return file;
         }
     }
 }
