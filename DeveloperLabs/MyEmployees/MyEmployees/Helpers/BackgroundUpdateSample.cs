@@ -13,9 +13,9 @@ namespace MyEmployees.Helpers
         static readonly string taskName = "AppUpdateBackgroundTask";
         static readonly string taskEntryPoint = "BackgroundUpdate.BackgroundUpdateTask";
         // A system trigger that goes off every 15 minutes as long as the device is plugged in to AC power
-        static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
+        // static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
         // For testing purposes you can use the trigger below to activate the background task immediately by changing the time zone
-        // static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
+        static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
 
         /// <summary>
         /// Calls the function RegisterBackgroundTask with the desired task name, and entry point (namespace.classname)
@@ -64,6 +64,10 @@ namespace MyEmployees.Helpers
         {
             // Reads data from a local setting populated and created by the background task
             bool updateIsFound = (bool)ApplicationData.Current.LocalSettings.Values["isUpdateAvailable"];
+            Program._instance.Invoke(new MethodInvoker(delegate
+            {
+                Program._instance.LoadNewEmployees();
+            }));
             if (updateIsFound)
             {
                 // Pops a toast notification when an update is detected
