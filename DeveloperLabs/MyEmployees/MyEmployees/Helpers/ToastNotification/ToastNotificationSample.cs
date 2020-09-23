@@ -7,7 +7,7 @@ namespace MyEmployees.Helpers.Toast
     class ToastNotificationSample
     {
         const string aumid = "MyEmployees_rv8ym4y7mg4aw!App";
-        const string updateAvailable = "There is an update available.\nPlease click \"Update Now\" in the MyEmployees window to intitiate the update.";
+        const string updateAvailable = "There is an update available.\nPlease click 'Menu' -> 'check for updates'to update.";
         public static void ImplementToastNotification()
         {
             // Register AUMID and COM server (for MSIX/sparse package apps, this no-ops)

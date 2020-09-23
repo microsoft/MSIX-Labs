@@ -178,23 +178,6 @@ namespace ExportDataLibrary
             throw new Exception("Invalid DLL, Interface not found!");
         }
 
-        public void CreateUpdateButton()
-        {
-            Button UpdateButton = new Button();
-            UpdateButton.Location = new Point(629, 25);
-            UpdateButton.Name = "updateButton";
-            UpdateButton.Size = new Size(75, 23);
-            UpdateButton.Text = "Update Now";
-            UpdateButton.Visible = true;
-            UpdateButton.Click += updateButton_Click;
-            this.Controls.Add(UpdateButton);
-        }
-
-        public void updateButton_Click(object sender, EventArgs e)
-        {
-            Scenarios.AppUpdateHelper("Click continue to start the update", "Continue", "Cancel");
-        }
-
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Scenarios.InitiateAppUpdate();
