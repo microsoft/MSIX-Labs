@@ -66,6 +66,8 @@ namespace MyEmployees.Helpers
             bool updateIsFound = (bool)ApplicationData.Current.LocalSettings.Values["isUpdateAvailable"];
             if (updateIsFound)
             {
+                // Pops a toast notification when an update is detected
+                Toast.ToastNotificationSample.ImplementToastNotification();
                 // Executes the specified delegates on the thread that owns 'Form1' control's underlying window handle
                 Program._instance.Invoke(new MethodInvoker(delegate
                 {
