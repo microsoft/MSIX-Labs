@@ -127,7 +127,7 @@ namespace ExportDataLibrary
                 }
             }
             dataGridView1.DataSource = employeeBindingSource;
-            //LoadNewEmployees();
+            LoadNewEmployees();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
