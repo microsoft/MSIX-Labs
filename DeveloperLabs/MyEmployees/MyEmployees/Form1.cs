@@ -27,11 +27,16 @@ namespace ExportDataLibrary
         public static readonly string inputPackageUri = "c:\\temp\\MyEmployees.Package.msixbundle";
         // Stores the path of a local file containing the version data of the new package
         public static readonly string inputPackageVersionUri = "c:\\temp\\version.txt";
+        static readonly string hourlyCompFileName = "HourlyCompData.txt";
+        static readonly string hoursWorkedFileName = "HoursWorkedData.txt";
         static readonly int imgColumn = 1;
         static readonly int emailColumn = 4;
         static readonly int addressColumn = 5;
         static int rowClicked = 0;
         StorageFile imgFile = null;
+        StorageFolder HrData = null;
+        public static string[] employeeHourlyComp;
+        public static string[] employeeHoursWorked;
 
         public Form1()
         {
@@ -128,6 +133,9 @@ namespace ExportDataLibrary
                             LastName = reader[2].ToString(),
                             Email = reader[3].ToString(),
                             Address = "One Microsoft Way, Redmond, WA",
+                            HourlyComp = 0,
+                            HrsPerWk = 0,
+                            AnnualComp = 0
                         };
 
                         employeeBindingSource.Add(employee);
@@ -137,6 +145,7 @@ namespace ExportDataLibrary
             dataGridView.DataSource = employeeBindingSource;
             LoadNewEmployees();
             LoadEmployeePictures();
+            LoadHrData();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -310,6 +319,82 @@ namespace ExportDataLibrary
             else
             {
                 MessageBox.Show("The image is empty");
+            }
+        }
+
+        private string[] LoadEmployeeHourlyCompData(StorageFolder HrData)
+        {
+            return File.ReadAllLines(Path.Combine(HrData.Path, hourlyCompFileName));
+        }
+
+        private string[] LoadEmployeeHoursWorkedData(StorageFolder HrData)
+        {
+            return File.ReadAllLines(Path.Combine(HrData.Path, hoursWorkedFileName));
+        }
+
+        private void UpdateEmployeeHourlyComp(String[] hourlyComp)
+        {
+            int index = 0;
+            foreach (Employee e in employeeBindingSource)
+            {
+                e.HourlyComp = Convert.ToInt32(hourlyComp[index]);
+                index++;
+            }
+        }
+
+        private void UpdateEmployeeHoursWorked(String[] hoursWorked)
+        {
+            int index = 0;
+            foreach (Employee e in employeeBindingSource)
+            {
+                e.HrsPerWk = Convert.ToInt32(hoursWorked[index]);
+                index++;
+            }
+        }
+
+        private async void SaveHrData()
+        {
+            try
+            {
+                StorageFile hoursWorkedFile = await HrData.GetFileAsync(hoursWorkedFileName);
+                await hoursWorkedFile.CopyAsync(ApplicationData.Current.LocalFolder);
+                StorageFile hourlyCompFile = await HrData.GetFileAsync(hourlyCompFileName);
+                await hourlyCompFile.CopyAsync(ApplicationData.Current.LocalFolder);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private void LoadHrData()
+        {
+            try
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                employeeHourlyComp = LoadEmployeeHourlyCompData(localFolder);
+                UpdateEmployeeHourlyComp(employeeHourlyComp);
+                employeeHoursWorked = LoadEmployeeHoursWorkedData(localFolder);
+                UpdateEmployeeHoursWorked(employeeHoursWorked);
+                this.Refresh();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private async void importHRDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HrData = await Scenarios.LoadDataFromOptionalPackageAsync();
+            if (HrData != null)
+            {
+                employeeHourlyComp = LoadEmployeeHourlyCompData(HrData);
+                UpdateEmployeeHourlyComp(employeeHourlyComp);
+                employeeHoursWorked = LoadEmployeeHoursWorkedData(HrData);
+                UpdateEmployeeHoursWorked(employeeHoursWorked);
+                SaveHrData();
+                this.Refresh();
             }
         }
     }

@@ -165,5 +165,33 @@ namespace MyEmployees.Helpers
             StorageFile sharefile = await localFolder.CreateFileAsync(Share.imageFileName, CreationCollisionOption.ReplaceExisting);
             shareImage.Save(sharefile.Path, ImageFormat.Png);
         }
+
+        /// <summary>
+        /// Searches for an optional package in the main package dependencies
+        /// </summary>
+        /// <returns>The HrData folder shared from the optional package or null if there is no optional package</returns>
+        public static async Task<StorageFolder> LoadDataFromOptionalPackageAsync()
+        {
+            foreach (var package in Windows.ApplicationModel.Package.Current.Dependencies)
+            {
+                if (package.IsOptional)
+                {
+                    return await LoadHrData(package);
+                }
+            }
+            MessageBox.Show("Please install the optional package. (Refer to the readme for further instructions)");
+            return null;
+        }
+
+        /// <summary>
+        /// Retrieves the HrData folder from the optional package
+        /// </summary>
+        /// <param name="package">The optional package that contains the HrData folder</param>
+        /// <returns>The HrData folder shared from the optional package</returns>
+        public static async Task<StorageFolder> LoadHrData(Windows.ApplicationModel.Package package)
+        {
+            StorageFolder appInstalledFolder = package.InstalledLocation;
+            return await appInstalledFolder.GetFolderAsync("HrData");
+        }
     }
 }
