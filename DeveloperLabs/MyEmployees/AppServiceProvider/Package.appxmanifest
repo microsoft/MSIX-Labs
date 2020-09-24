@@ -9,14 +9,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="AppServiceProvider"
+    Name="MyEmployeesCalcService"
     Publisher="CN=Contoso Software"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="14b25f7c-373c-4e9d-a14f-f911be246e9f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MyEmployeesAppServiceProvider</DisplayName>
+    <DisplayName>MyEmployeesCalcService</DisplayName>
     <PublisherDisplayName>Contoso Software (FOR LAB USE ONLY)</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -39,8 +39,9 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="AppServiceProvider"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.appService" EntryPoint="MyAppService.AnnualCompCalculator">

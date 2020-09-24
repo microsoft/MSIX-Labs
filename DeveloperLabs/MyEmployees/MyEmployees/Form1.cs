@@ -418,7 +418,7 @@ namespace ExportDataLibrary
                 String[] annualCompData = File.ReadAllLines(Path.Combine(ApplicationData.Current.LocalFolder.Path, annualCompFileName));
                 foreach (Employee e in employeeBindingSource)
                 {
-                    e.AnnualComp = Convert.ToInt32(annualCompData[e.EmployeeId]);
+                    e.AnnualComp = Convert.ToInt32(annualCompData[e.EmployeeId-1]);
                 }
             }
             catch (Exception e)
