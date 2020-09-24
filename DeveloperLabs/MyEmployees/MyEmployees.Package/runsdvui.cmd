@@ -1,0 +1,2 @@
+cd /d "C:\Users\Administrator\source\repos\MSIX-Labs\DeveloperLabs\MyEmployees\MyEmployees.Package" &msbuild "MyEmployees.Package.wapproj" /t:sdvViewer /p:configuration="Debug" /p:platform="x64" /p:SolutionDir="C:\Users\Administrator\source\repos\MSIX-Labs\DeveloperLabs\MyEmployees" 
+exit %errorlevel% 

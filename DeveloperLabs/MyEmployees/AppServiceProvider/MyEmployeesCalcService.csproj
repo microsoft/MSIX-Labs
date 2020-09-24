@@ -212,13 +212,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="MyEmployeesCalcService_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MyAppService\MyAppService.csproj">
       <Project>{6cca803b-9e54-440a-be44-4715530b0ef3}</Project>
       <Name>MyAppService</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MyEmployeesCalcService_TemporaryKey.pfx" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
