@@ -45,6 +45,7 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripViewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripUploadNewPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSharePicture = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -155,23 +156,31 @@
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripUploadNewPicture,
-            this.toolStripViewPicture});
+            this.toolStripViewPicture,
+            this.toolStripSharePicture});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip.Size = new System.Drawing.Size(178, 70);
             // 
             // toolStripViewPicture
             // 
             this.toolStripViewPicture.Name = "toolStripViewPicture";
-            this.toolStripViewPicture.Size = new System.Drawing.Size(180, 22);
+            this.toolStripViewPicture.Size = new System.Drawing.Size(177, 22);
             this.toolStripViewPicture.Text = "View picture";
             this.toolStripViewPicture.Click += new System.EventHandler(this.toolStripViewPicture_Click);
             // 
             // toolStripUploadNewPicture
             // 
             this.toolStripUploadNewPicture.Name = "toolStripUploadNewPicture";
-            this.toolStripUploadNewPicture.Size = new System.Drawing.Size(180, 22);
+            this.toolStripUploadNewPicture.Size = new System.Drawing.Size(177, 22);
             this.toolStripUploadNewPicture.Text = "Upload new picture";
             this.toolStripUploadNewPicture.Click += new System.EventHandler(this.toolStripUploadNewPicture_Click);
+            // 
+            // toolStripSharePicture
+            // 
+            this.toolStripSharePicture.Name = "toolStripSharePicture";
+            this.toolStripSharePicture.Size = new System.Drawing.Size(177, 22);
+            this.toolStripSharePicture.Text = "Share picture";
+            this.toolStripSharePicture.Click += new System.EventHandler(this.toolStripSharePicture_Click);
             // 
             // Form1
             // 
@@ -212,6 +221,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewLinkColumn Email;
         private System.Windows.Forms.DataGridViewLinkColumn Address;
+        private System.Windows.Forms.ToolStripMenuItem toolStripSharePicture;
     }
 }
 
