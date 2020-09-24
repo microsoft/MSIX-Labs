@@ -15,7 +15,7 @@
   <mp:PhoneIdentity PhoneProductId="284e06c8-1e27-487b-be49-e85482e77adb" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>OptionalPackage</DisplayName>
+    <DisplayName>MyEmployeesHRPackage</DisplayName>
     <PublisherDisplayName>Contoso Software (FOR LAB USE ONLY)</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

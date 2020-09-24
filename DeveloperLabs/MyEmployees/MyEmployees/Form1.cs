@@ -352,12 +352,19 @@ namespace ExportDataLibrary
             }
         }
 
-        private async void SaveHrData ()
+        private async void SaveHrData()
         {
-            StorageFile hoursWorkedFile = await HrData.GetFileAsync(hoursWorkedFileName);
-            await hoursWorkedFile.CopyAsync(ApplicationData.Current.LocalFolder);
-            StorageFile hourlyCompFile = await HrData.GetFileAsync(hourlyCompFileName);
-            await hourlyCompFile.CopyAsync(ApplicationData.Current.LocalFolder);
+            try
+            {
+                StorageFile hoursWorkedFile = await HrData.GetFileAsync(hoursWorkedFileName);
+                await hoursWorkedFile.CopyAsync(ApplicationData.Current.LocalFolder);
+                StorageFile hourlyCompFile = await HrData.GetFileAsync(hourlyCompFileName);
+                await hourlyCompFile.CopyAsync(ApplicationData.Current.LocalFolder);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void LoadHrData()
