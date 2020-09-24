@@ -37,14 +37,18 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Address = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.HrsPerWk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HourlyComp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnnualComp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importHRDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripViewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripUploadNewPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripViewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSharePicture = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
@@ -63,11 +67,14 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.Email,
-            this.Address});
+            this.Address,
+            this.HrsPerWk,
+            this.HourlyComp,
+            this.AnnualComp});
             this.dataGridView.DataSource = this.employeeBindingSource;
             this.dataGridView.Location = new System.Drawing.Point(12, 46);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(776, 379);
+            this.dataGridView.Size = new System.Drawing.Size(958, 379);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
             // 
@@ -115,6 +122,27 @@
             this.Address.Name = "Address";
             this.Address.Width = 200;
             // 
+            // HrsPerWk
+            // 
+            this.HrsPerWk.DataPropertyName = "HrsPerWk";
+            this.HrsPerWk.HeaderText = "Hrs/Week";
+            this.HrsPerWk.Name = "HrsPerWk";
+            this.HrsPerWk.Width = 65;
+            // 
+            // HourlyComp
+            // 
+            this.HourlyComp.DataPropertyName = "HourlyComp";
+            this.HourlyComp.HeaderText = "Hourly Comp.";
+            this.HourlyComp.Name = "HourlyComp";
+            this.HourlyComp.Width = 70;
+            // 
+            // AnnualComp
+            // 
+            this.AnnualComp.DataPropertyName = "AnnualComp";
+            this.AnnualComp.HeaderText = "Annual Comp.";
+            this.AnnualComp.Name = "AnnualComp";
+            this.AnnualComp.Width = 80;
+            // 
             // employeeBindingSource
             // 
             this.employeeBindingSource.DataSource = typeof(MyEmployees.Entities.Employee);
@@ -125,7 +153,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(982, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -133,7 +161,8 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
-            this.checkForUpdatesToolStripMenuItem});
+            this.checkForUpdatesToolStripMenuItem,
+            this.importHRDataToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.helpToolStripMenuItem.Text = "Menu";
@@ -141,16 +170,23 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            // 
+            // importHRDataToolStripMenuItem
+            // 
+            this.importHRDataToolStripMenuItem.Name = "importHRDataToolStripMenuItem";
+            this.importHRDataToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.importHRDataToolStripMenuItem.Text = "Import employee HR data";
+            this.importHRDataToolStripMenuItem.Click += new System.EventHandler(this.importHRDataToolStripMenuItem_Click);
             // 
             // contextMenuStrip
             // 
@@ -161,19 +197,19 @@
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.Size = new System.Drawing.Size(178, 70);
             // 
-            // toolStripViewPicture
-            // 
-            this.toolStripViewPicture.Name = "toolStripViewPicture";
-            this.toolStripViewPicture.Size = new System.Drawing.Size(177, 22);
-            this.toolStripViewPicture.Text = "View picture";
-            this.toolStripViewPicture.Click += new System.EventHandler(this.toolStripViewPicture_Click);
-            // 
             // toolStripUploadNewPicture
             // 
             this.toolStripUploadNewPicture.Name = "toolStripUploadNewPicture";
             this.toolStripUploadNewPicture.Size = new System.Drawing.Size(177, 22);
             this.toolStripUploadNewPicture.Text = "Upload new picture";
             this.toolStripUploadNewPicture.Click += new System.EventHandler(this.toolStripUploadNewPicture_Click);
+            // 
+            // toolStripViewPicture
+            // 
+            this.toolStripViewPicture.Name = "toolStripViewPicture";
+            this.toolStripViewPicture.Size = new System.Drawing.Size(177, 22);
+            this.toolStripViewPicture.Text = "View picture";
+            this.toolStripViewPicture.Click += new System.EventHandler(this.toolStripViewPicture_Click);
             // 
             // toolStripSharePicture
             // 
@@ -186,7 +222,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(982, 450);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -215,13 +251,17 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripViewPicture;
         private System.Windows.Forms.ToolStripMenuItem toolStripUploadNewPicture;
+        private System.Windows.Forms.ToolStripMenuItem toolStripSharePicture;
+        private System.Windows.Forms.ToolStripMenuItem importHRDataToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeId;
         private System.Windows.Forms.DataGridViewImageColumn Img;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewLinkColumn Email;
         private System.Windows.Forms.DataGridViewLinkColumn Address;
-        private System.Windows.Forms.ToolStripMenuItem toolStripSharePicture;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HrsPerWk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HourlyComp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnnualComp;
     }
 }
 
