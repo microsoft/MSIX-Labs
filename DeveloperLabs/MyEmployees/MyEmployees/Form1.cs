@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel;
+using Windows.Foundation.Collections;
 using Windows.Storage;
 
 namespace ExportDataLibrary
@@ -29,6 +30,7 @@ namespace ExportDataLibrary
         public static readonly string inputPackageVersionUri = "c:\\temp\\version.txt";
         static readonly string hourlyCompFileName = "HourlyCompData.txt";
         static readonly string hoursWorkedFileName = "HoursWorkedData.txt";
+        static readonly string annualCompFileName = "annualCompData.txt";
         static readonly int imgColumn = 1;
         static readonly int emailColumn = 4;
         static readonly int addressColumn = 5;
@@ -144,8 +146,9 @@ namespace ExportDataLibrary
             }
             dataGridView.DataSource = employeeBindingSource;
             LoadNewEmployees();
-            LoadEmployeePictures();
             LoadHrData();
+            LoadEmployeePictures();
+            LoadEmployeeAnnualCompData();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -395,6 +398,65 @@ namespace ExportDataLibrary
                 UpdateEmployeeHoursWorked(employeeHoursWorked);
                 SaveHrData();
                 this.Refresh();
+            }
+        }
+
+        private void UpdateEmployeeAnnualCompData(ValueSet annualComp)
+        {
+            int index = 0;
+            foreach (Employee e in employeeBindingSource)
+            {
+                e.AnnualComp = Convert.ToInt32(annualComp[e.EmployeeId.ToString()]);
+                index++;
+            }
+        }
+
+        private void LoadEmployeeAnnualCompData()
+        {
+            try
+            {
+                String[] annualCompData = File.ReadAllLines(Path.Combine(ApplicationData.Current.LocalFolder.Path, annualCompFileName));
+                foreach (Employee e in employeeBindingSource)
+                {
+                    e.AnnualComp = Convert.ToInt32(annualCompData[e.EmployeeId]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private async void SaveEmployeeAnnualCompData(ValueSet annualComp)
+        {
+            StorageFile annualCompFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(annualCompFileName, CreationCollisionOption.ReplaceExisting);
+            int index = 0;
+            string[] annualCompData = new string[employeeBindingSource.Count];
+            foreach (Employee e in employeeBindingSource)
+            {
+                int employeeAnnualComp = Convert.ToInt32(annualComp[e.EmployeeId.ToString()]);
+                annualCompData[index] = employeeAnnualComp.ToString();
+                index++;
+            }
+            File.WriteAllLines(annualCompFile.Path, annualCompData);
+        }
+        
+
+        private async void calculateAnnualCompensationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (employeeHourlyComp != null && employeeHoursWorked != null)
+            {
+                ValueSet annualComp = await Scenarios.CallAppServiceAsync("AppServiceProvider_rv8ym4y7mg4aw", "com.microsoft.AnnualCompCalculator", employeeBindingSource.Count);
+                if (annualComp != null)
+                {
+                    UpdateEmployeeAnnualCompData(annualComp);
+                    SaveEmployeeAnnualCompData(annualComp);
+                    this.Refresh();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please get the data from the optional package first");
             }
         }
     }

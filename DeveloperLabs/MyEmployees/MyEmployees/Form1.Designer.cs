@@ -50,6 +50,7 @@
             this.toolStripUploadNewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripViewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSharePicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.calculateAnnualCompensationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -162,7 +163,8 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.checkForUpdatesToolStripMenuItem,
-            this.importHRDataToolStripMenuItem});
+            this.importHRDataToolStripMenuItem,
+            this.calculateAnnualCompensationToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.helpToolStripMenuItem.Text = "Menu";
@@ -170,21 +172,21 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // importHRDataToolStripMenuItem
             // 
             this.importHRDataToolStripMenuItem.Name = "importHRDataToolStripMenuItem";
-            this.importHRDataToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.importHRDataToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.importHRDataToolStripMenuItem.Text = "Import employee HR data";
             this.importHRDataToolStripMenuItem.Click += new System.EventHandler(this.importHRDataToolStripMenuItem_Click);
             // 
@@ -217,6 +219,13 @@
             this.toolStripSharePicture.Size = new System.Drawing.Size(177, 22);
             this.toolStripSharePicture.Text = "Share picture";
             this.toolStripSharePicture.Click += new System.EventHandler(this.toolStripSharePicture_Click);
+            // 
+            // calculateAnnualCompensationToolStripMenuItem
+            // 
+            this.calculateAnnualCompensationToolStripMenuItem.Name = "calculateAnnualCompensationToolStripMenuItem";
+            this.calculateAnnualCompensationToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.calculateAnnualCompensationToolStripMenuItem.Text = "Calculate annual compensation";
+            this.calculateAnnualCompensationToolStripMenuItem.Click += new System.EventHandler(this.calculateAnnualCompensationToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -262,6 +271,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HrsPerWk;
         private System.Windows.Forms.DataGridViewTextBoxColumn HourlyComp;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnnualComp;
+        private System.Windows.Forms.ToolStripMenuItem calculateAnnualCompensationToolStripMenuItem;
     }
 }
 
