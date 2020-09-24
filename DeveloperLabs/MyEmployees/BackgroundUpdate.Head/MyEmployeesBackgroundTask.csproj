@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{93D56FF2-05E3-4044-ABD9-700CA3B65848}</ProjectGuid>
+    <ProjectGuid>{9C537517-027A-4F05-A2E3-1E4E02B15410}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AppServiceProvider</RootNamespace>
-    <AssemblyName>AppServiceProvider</AssemblyName>
+    <RootNamespace>BackgroundUpdate.Head</RootNamespace>
+    <AssemblyName>BackgroundUpdate.Head</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
@@ -136,11 +136,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\BadgeLogo.scale-100.png" />
-    <Content Include="Assets\BadgeLogo.scale-125.png" />
-    <Content Include="Assets\BadgeLogo.scale-150.png" />
-    <Content Include="Assets\BadgeLogo.scale-200.png" />
-    <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -210,9 +205,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAppService\MyAppService.csproj">
-      <Project>{6cca803b-9e54-440a-be44-4715530b0ef3}</Project>
-      <Name>MyAppService</Name>
+    <ProjectReference Include="..\BackgroundUpdate\BackgroundUpdate.csproj">
+      <Project>{dd006ddb-5fb5-4fad-b89f-1726639b1cea}</Project>
+      <Name>BackgroundUpdate</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

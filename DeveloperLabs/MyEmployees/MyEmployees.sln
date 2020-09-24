@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEmployees.PluginInterface
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MyEmployees.Package", "MyEmployees.Package\MyEmployees.Package.wapproj", "{80DB0989-9307-466B-ABA0-9F82D424CBD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundUpdate.Head", "BackgroundUpdate.Head\BackgroundUpdate.Head.csproj", "{9C537517-027A-4F05-A2E3-1E4E02B15410}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEmployeesBackgroundTask", "BackgroundUpdate.Head\MyEmployeesBackgroundTask.csproj", "{9C537517-027A-4F05-A2E3-1E4E02B15410}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundUpdate", "BackgroundUpdate\BackgroundUpdate.csproj", "{DD006DDB-5FB5-4FAD-B89F-1726639B1CEA}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionalPackage", "Optional
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAppService", "MyAppService\MyAppService.csproj", "{6CCA803B-9E54-440A-BE44-4715530B0EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServiceProvider", "AppServiceProvider\AppServiceProvider.csproj", "{93D56FF2-05E3-4044-ABD9-700CA3B65848}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEmployeesCalcService", "AppServiceProvider\MyEmployeesCalcService.csproj", "{93D56FF2-05E3-4044-ABD9-700CA3B65848}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

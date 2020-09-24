@@ -446,7 +446,7 @@ namespace ExportDataLibrary
         {
             if (employeeHourlyComp != null && employeeHoursWorked != null)
             {
-                ValueSet annualComp = await Scenarios.CallAppServiceAsync("AppServiceProvider_rv8ym4y7mg4aw", "com.microsoft.AnnualCompCalculator", employeeBindingSource.Count);
+                ValueSet annualComp = await Scenarios.CallAppServiceAsync("MyEmployeesCalcService_rv8ym4y7mg4aw", "com.microsoft.AnnualCompCalculator", employeeBindingSource.Count);
                 if (annualComp != null)
                 {
                     UpdateEmployeeAnnualCompData(annualComp);
