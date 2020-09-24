@@ -65,6 +65,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <AppxBundle>Always</AppxBundle>
@@ -161,7 +162,7 @@
     <Content Include="Images\WideTile.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyEmployeesBackgroundTask\MyEmployeesBackgroundTask.csproj" />
+    <ProjectReference Include="..\BackgroundUpdate.Head\MyEmployeesBackgroundTask.csproj" />
     <ProjectReference Include="..\MyEmployees\MyEmployees.csproj" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
