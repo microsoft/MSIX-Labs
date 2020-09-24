@@ -145,6 +145,7 @@ namespace ExportDataLibrary
             dataGridView.DataSource = employeeBindingSource;
             LoadNewEmployees();
             LoadEmployeePictures();
+            LoadHrData();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -351,6 +352,31 @@ namespace ExportDataLibrary
             }
         }
 
+        private async void SaveHrData ()
+        {
+            StorageFile hoursWorkedFile = await HrData.GetFileAsync(hoursWorkedFileName);
+            await hoursWorkedFile.CopyAsync(ApplicationData.Current.LocalFolder);
+            StorageFile hourlyCompFile = await HrData.GetFileAsync(hourlyCompFileName);
+            await hourlyCompFile.CopyAsync(ApplicationData.Current.LocalFolder);
+        }
+
+        private void LoadHrData()
+        {
+            try
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                employeeHourlyComp = LoadEmployeeHourlyCompData(localFolder);
+                UpdateEmployeeHourlyComp(employeeHourlyComp);
+                employeeHoursWorked = LoadEmployeeHoursWorkedData(localFolder);
+                UpdateEmployeeHoursWorked(employeeHoursWorked);
+                this.Refresh();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
         private async void importHRDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HrData = await Scenarios.LoadDataFromOptionalPackageAsync();
@@ -360,6 +386,7 @@ namespace ExportDataLibrary
                 UpdateEmployeeHourlyComp(employeeHourlyComp);
                 employeeHoursWorked = LoadEmployeeHoursWorkedData(HrData);
                 UpdateEmployeeHoursWorked(employeeHoursWorked);
+                SaveHrData();
                 this.Refresh();
             }
         }
