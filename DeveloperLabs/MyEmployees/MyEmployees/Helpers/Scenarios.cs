@@ -5,6 +5,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.AppService;
+using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
@@ -192,6 +194,38 @@ namespace MyEmployees.Helpers
         {
             StorageFolder appInstalledFolder = package.InstalledLocation;
             return await appInstalledFolder.GetFolderAsync("HrData");
+        }
+
+        /// <summary>
+        /// Establishes a connection to an AppService and calls the service
+        /// </summary>
+        /// <param name="packageFamilyName">The app service provider's package family name</param>
+        /// <param name="appServiceName">The app service name defined in the app service provider's Package.appxmanifest file</param>
+        /// <returns>A response message from the AppService</returns>
+        public static async Task<ValueSet> CallAppServiceAsync(string packageFamilyName, string appServiceName, int numberOfEmployees)
+        {
+            AppServiceConnection appService = null;
+            if (appService == null)
+            {
+                appService = new AppServiceConnection();
+                ValueSet message = new ValueSet();
+                appService.AppServiceName = appServiceName;
+                appService.PackageFamilyName = packageFamilyName;
+                message.Add("EmployeeHoursWorkedData", Form1.employeeHoursWorked);
+                message.Add("EmployeeHourlyCompData", Form1.employeeHourlyComp);
+                message.Add("numberOfEmployees", numberOfEmployees);
+                var status = await appService.OpenAsync();
+                if (status == AppServiceConnectionStatus.Success)
+                {
+                    AppServiceResponse response = await appService.SendMessageAsync(message);
+                    return response.Message;
+                }
+                else
+                {
+                    MessageBox.Show(status.ToString());
+                }
+            }
+            return null;
         }
     }
 }
