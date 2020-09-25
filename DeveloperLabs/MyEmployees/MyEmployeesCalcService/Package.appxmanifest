@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="ec6202ff-1a37-48cc-9fa1-3b3d9cfd0736"
-    Publisher="CN=v-sakmoh"
+    Name="MyEmployeesCalcService"
+    Publisher="CN=Contoso Software"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec6202ff-1a37-48cc-9fa1-3b3d9cfd0736" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MyEmployeesCalcService</DisplayName>
-    <PublisherDisplayName>v-sakmoh</PublisherDisplayName>
+    <PublisherDisplayName>Contoso Software (FOR LAB USE ONLY)</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
