@@ -43,7 +43,7 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.appService" EntryPoint="AppService.AnnualCompCalculator">
+        <uap:Extension Category="windows.appService" EntryPoint="MyAppService.AnnualCompCalculator">
           <uap3:AppService Name="com.microsoft.AnnualCompCalculator" uap4:SupportsMultipleInstances="true"/>
         </uap:Extension>
       </Extensions>
