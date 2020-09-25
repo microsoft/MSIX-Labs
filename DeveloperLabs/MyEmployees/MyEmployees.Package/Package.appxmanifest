@@ -4,12 +4,13 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap uap3 rescap">
 
   <Identity
     Name="MyEmployees"
     Publisher="CN=Contoso Software"
-    Version="1.0.0.9" />
+    Version="1.0.0.10" />
 
   <Properties>
     <DisplayName>MyEmployees</DisplayName>
@@ -45,6 +46,11 @@
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
+        <uap3:Extension Category="windows.appExtensionHost">
+          <uap3:AppExtensionHost>
+            <uap3:Name>com.microsoft.contosoassetext</uap3:Name>
+          </uap3:AppExtensionHost>
+        </uap3:Extension>
       </Extensions>
     </Application>
   </Applications>

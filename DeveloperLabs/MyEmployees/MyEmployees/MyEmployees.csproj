@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Helpers\AppUpdate.cs" />
     <Compile Include="Helpers\BackgroundUpdateSample.cs" />
+    <Compile Include="Helpers\ExtensionManager.cs" />
     <Compile Include="Helpers\IInitializeWithWindow.cs" />
     <Compile Include="Helpers\RelaunchHelper.cs" />
     <Compile Include="Helpers\Scenarios.cs" />

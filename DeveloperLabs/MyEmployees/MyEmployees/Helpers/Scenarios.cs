@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.AppExtensions;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -18,6 +19,8 @@ namespace MyEmployees.Helpers
         static readonly string updateLaterbutton_text = "Update later";
         static readonly string updateAvailable = "There is an update available for My Employees";
         static readonly string upToDate = "My Employees is already up-to-date";
+        static readonly string appExtensionId = "BackgroundImage";
+        static readonly string appExtensionName = "com.microsoft.contosoassetext";
         static readonly string appName = "MyEmployees";
         public static Image shareImage = null;
 
@@ -226,6 +229,23 @@ namespace MyEmployees.Helpers
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Initiates and executes the scenario app extensions
+        /// </summary>
+        public static async void InitiateAndExecuteAppExtensions()
+        {
+            AppExtension extension = null;
+            extension = await ExtensionManager.GetAppExtension(appExtensionId, appExtensionName);
+            if (extension == null)
+            {
+                MessageBox.Show("Please install the app extension (Refer to the readme for further instructions) ");
+            }
+            else
+            {
+                ExtensionManager.ExecuteImageLoadScenario(extension);
+            }
         }
     }
 }
