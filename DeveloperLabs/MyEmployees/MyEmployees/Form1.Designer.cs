@@ -46,11 +46,12 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importHRDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calculateAnnualCompensationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripUploadNewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripViewPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSharePicture = new System.Windows.Forms.ToolStripMenuItem();
-            this.calculateAnnualCompensationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeBackgroundImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -164,7 +165,8 @@
             this.aboutToolStripMenuItem,
             this.checkForUpdatesToolStripMenuItem,
             this.importHRDataToolStripMenuItem,
-            this.calculateAnnualCompensationToolStripMenuItem});
+            this.calculateAnnualCompensationToolStripMenuItem,
+            this.changeBackgroundImageToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.helpToolStripMenuItem.Text = "Menu";
@@ -189,6 +191,13 @@
             this.importHRDataToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.importHRDataToolStripMenuItem.Text = "Import employee HR data";
             this.importHRDataToolStripMenuItem.Click += new System.EventHandler(this.importHRDataToolStripMenuItem_Click);
+            // 
+            // calculateAnnualCompensationToolStripMenuItem
+            // 
+            this.calculateAnnualCompensationToolStripMenuItem.Name = "calculateAnnualCompensationToolStripMenuItem";
+            this.calculateAnnualCompensationToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.calculateAnnualCompensationToolStripMenuItem.Text = "Calculate annual compensation";
+            this.calculateAnnualCompensationToolStripMenuItem.Click += new System.EventHandler(this.calculateAnnualCompensationToolStripMenuItem_Click);
             // 
             // contextMenuStrip
             // 
@@ -220,12 +229,12 @@
             this.toolStripSharePicture.Text = "Share picture";
             this.toolStripSharePicture.Click += new System.EventHandler(this.toolStripSharePicture_Click);
             // 
-            // calculateAnnualCompensationToolStripMenuItem
+            // changeBackgroundImageToolStripMenuItem
             // 
-            this.calculateAnnualCompensationToolStripMenuItem.Name = "calculateAnnualCompensationToolStripMenuItem";
-            this.calculateAnnualCompensationToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.calculateAnnualCompensationToolStripMenuItem.Text = "Calculate annual compensation";
-            this.calculateAnnualCompensationToolStripMenuItem.Click += new System.EventHandler(this.calculateAnnualCompensationToolStripMenuItem_Click);
+            this.changeBackgroundImageToolStripMenuItem.Name = "changeBackgroundImageToolStripMenuItem";
+            this.changeBackgroundImageToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.changeBackgroundImageToolStripMenuItem.Text = "Change background image";
+            this.changeBackgroundImageToolStripMenuItem.Click += new System.EventHandler(this.changeBackgroundImageToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -272,6 +281,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HourlyComp;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnnualComp;
         private System.Windows.Forms.ToolStripMenuItem calculateAnnualCompensationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeBackgroundImageToolStripMenuItem;
     }
 }
 

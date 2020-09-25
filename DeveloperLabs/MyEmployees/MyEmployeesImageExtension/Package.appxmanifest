@@ -5,18 +5,17 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
-  IgnorableNamespaces="uap mp">
+  IgnorableNamespaces="uap uap3 mp">
 
   <Identity
-    Name="MyEmployeesCalcService"
+    Name="MyEmployeesImageExtension"
     Publisher="CN=Contoso Software"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="ec6202ff-1a37-48cc-9fa1-3b3d9cfd0736" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="7ae74ecf-4a7d-4355-8834-49d11703a7a7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MyEmployeesCalcService</DisplayName>
+    <DisplayName>MyEmployeesImageExtension</DisplayName>
     <PublisherDisplayName>Contoso Software (FOR LAB USE ONLY)</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,20 +31,25 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="MyEmployeesCalcService.App">
+      EntryPoint="MyEmployeesImageExtension.App">
       <uap:VisualElements
-        DisplayName="MyEmployeesCalcService"
+        DisplayName="MyEmployeesImageExtension"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="MyEmployeesCalcService"
+        Description="MyEmployeesImageExtension"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
-    <Extensions>
-        <uap:Extension Category="windows.appService" EntryPoint="MyAppService.AnnualCompCalculator">
-          <uap3:AppService Name="com.microsoft.AnnualCompCalculator" uap4:SupportsMultipleInstances="true"/>
-        </uap:Extension>
+      <Extensions>
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="com.microsoft.contosoassetext"
+                             Id="BackgroundImage"
+                              DisplayName="Background Image"
+                              Description ="This extension provides image assets"
+                              PublicFolder="Public">
+          </uap3:AppExtension>
+        </uap3:Extension>
       </Extensions>
     </Application>
   </Applications>

@@ -31,6 +31,7 @@ namespace ExportDataLibrary
         static readonly string hourlyCompFileName = "HourlyCompData.txt";
         static readonly string hoursWorkedFileName = "HoursWorkedData.txt";
         static readonly string annualCompFileName = "annualCompData.txt";
+        static readonly string backgroundImageFileName = "AppExtensionAsset";
         static readonly int imgColumn = 1;
         static readonly int emailColumn = 4;
         static readonly int addressColumn = 5;
@@ -149,6 +150,7 @@ namespace ExportDataLibrary
             LoadEmployeePictures();
             LoadHrData();
             LoadEmployeeAnnualCompData();
+            LoadBackgroundImage();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -457,6 +459,43 @@ namespace ExportDataLibrary
             {
                 MessageBox.Show("Please get the data from the optional package first");
             }
+        }
+
+        public async void SaveBackgroundImage(StorageFile appExtensionAsset)
+        {
+            try
+            {
+                var localFolder = ApplicationData.Current.LocalFolder;
+                await appExtensionAsset.CopyAsync(localFolder, backgroundImageFileName, NameCollisionOption.ReplaceExisting);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void LoadBackgroundImage()
+        {
+            try
+            {
+                string backgroundImagePath = ApplicationData.Current.LocalFolder.Path + "\\" + backgroundImageFileName;
+                ChangeBackgroundImage(backgroundImagePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void ChangeBackgroundImage(String backgroundImagePath)
+        {
+            Image image = Image.FromFile(backgroundImagePath);
+            this.BackgroundImage = image;
+        }
+
+        private void changeBackgroundImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Scenarios.InitiateAndExecuteAppExtensions();
         }
     }
 }
