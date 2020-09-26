@@ -1,5 +1,6 @@
 ﻿using ExportDataLibrary;
 using System;
+using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -92,7 +93,7 @@ namespace MyEmployees.Helpers
         /// Pops up a file picker that allows the user to pick a single file
         /// </summary>
         /// <returns>A StorageFile object that represents the file the user picked</returns>
-        public static async Task<StorageFile> PickFileAsync()
+        public static async Task<StorageFile> PickImageFileAsync()
         {
             // Creates the picker object and sets some of its properties
             FileOpenPicker openPicker = new FileOpenPicker();
@@ -245,6 +246,43 @@ namespace MyEmployees.Helpers
             else
             {
                 ExtensionManager.ExecuteImageLoadScenario(extension);
+            }
+        }
+        /// <summary>
+        /// Pops up a file picker that allows the user to pick a single CSV file
+        /// </summary>
+        /// <returns>A StorageFile object that represents the file the user picked</returns>
+        public static async Task<StorageFile> PickCsvFileAsync()
+        {
+            // Creates the picker object and sets some of its properties
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.FileTypeFilter.Add(".CSV");
+            openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            // Assigns the window handle to the file pickers' UI
+            IInitializeWithWindow initWindow = (IInitializeWithWindow)(object)openPicker;
+            initWindow.Initialize(GetMainWindowHandle());
+            // Opens the file picker for the user to pick a single file
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            return file;
+        }
+
+        /// <summary>
+        /// Calls an API from the WinRt Component, which exports employee hr data to a specified file
+        /// </summary>
+        /// <param name="data">The data that is passed in to the WinRt API</param>
+        public static async void ExportData(IList data)
+        {
+            try
+            {
+                StorageFile file = await PickCsvFileAsync();
+                if (file != null && RuntimeComponent.Class1.ExportData(data, file.Path))
+                {
+                    MessageBox.Show("The file was successfully saved");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
     }

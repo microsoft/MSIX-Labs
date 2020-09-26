@@ -10,7 +10,7 @@
   <Identity
     Name="MyEmployees"
     Publisher="CN=Contoso Software"
-    Version="1.0.0.10" />
+    Version="1.0.0.11" />
 
   <Properties>
     <DisplayName>MyEmployees</DisplayName>
