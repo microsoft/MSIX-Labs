@@ -306,7 +306,7 @@ namespace ExportDataLibrary
 
         private async void toolStripUploadNewPicture_Click(object sender, EventArgs e)
         {
-            imgFile = await Scenarios.PickFileAsync();
+            imgFile = await Scenarios.PickImageFileAsync();
             if (imgFile != null)
             {
                 UploadAndSaveImageAsync();
@@ -496,6 +496,11 @@ namespace ExportDataLibrary
         private void changeBackgroundImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Scenarios.InitiateAndExecuteAppExtensions();
+        }
+
+        private void exportEmployeeDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Scenarios.ExportData(employeeBindingSource.List);
         }
     }
 }
