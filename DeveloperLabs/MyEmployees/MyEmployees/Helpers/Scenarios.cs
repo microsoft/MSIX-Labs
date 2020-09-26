@@ -93,7 +93,7 @@ namespace MyEmployees.Helpers
         /// Pops up a file picker that allows the user to pick a single file
         /// </summary>
         /// <returns>A StorageFile object that represents the file the user picked</returns>
-        public static async Task<StorageFile> PickFileAsync()
+        public static async Task<StorageFile> PickImageFileAsync()
         {
             // Creates the picker object and sets some of its properties
             FileOpenPicker openPicker = new FileOpenPicker();
