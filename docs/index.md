@@ -72,27 +72,33 @@ MyEmployees is a basic Desktop app that displays employee records and their deta
 
 4. To build the solution, in the Standard Toolbar Options, select Configuration - Debug, Platform - x64 and Project - MyEmployees.Package. Click 'Build Solution' from the main menu Build dropdown.
 
-   <img src="Images/buildconfig.png" alt="build configuration" width=90%>
+   <img src="Images/buildconfig.PNG" alt="build configuration" width=90%>
 
 5. To run the application you can choose either of the following options:
 
-  1. Start debugging by clicking on 'Local Machine' or select F5.
-  2. Package the app and then install it on your local machine.
-    1. Right click on the MyEmployees.Package project -> Publish -> Create App Packages. A window titled 'Create App Packages' will pop up.
+      1. Start debugging by clicking on 'Local Machine' or select F5.
 
-    2. In the 'Select distribution method' settings, select the 'Sideloading' radio button, uncheck 'Enable automatic updates'. Click on 'Next'.
+      2. Package the app and then install it on your local machine.
 
-    3. In the 'Select signing method' settings, select the 'Yes, select a certificate' radio button, and click the 'Create' option. Fill in the 'Publisher Common Name' as 'Contoso' and create a password if you wish. You can also choose a Timestamp server if you wish. Click on 'Next'.
+            1. Right click on the MyEmployees.Package project -> Publish -> Create App Packages. A window titled 'Create App Packages' will pop up.
 
-       If you get an error that says 'Certificate not found', just remove the current certificate and try step 3.
+            2. In the 'Select distribution method' settings, select the 'Sideloading' radio button, uncheck 'Enable automatic updates'. Click on 'Next'.
 
-    4. In the 'Select and configure packages' settings, you can choose to either generate an app bundle or a package. For the purpose of these labs, let's create a package. Choose 'Never' in the dropdown menu for 'Generate app bundle'. Select x64 checkbox for 'Select the packages to create and the solution configuration mappings'. Click on 'Create'.
+            3. In the 'Select signing method' settings, select the 'Yes, select a certificate' radio button, and click the 'Create' option. Fill in the 'Publisher Common Name' as 'Contoso' and create a password if you wish. You can also choose a Timestamp server if you wish. Click on 'Next'. 
 
-    5. In the 'Finished creating package' pop-up, click on the 'Output location' and open the package 'MyEmployees.Package_1.0.0.0_x64_Debug_Test'. Double click on the .msix package to install the app. If the certificate you used to sign the app is not trusted by your machine, you will not be able to install the package.
+                  If you get an error that says 'Certificate not found', just remove the current certificate and try step 3.
 
-    6. To install the certificate on your local machine, right click on the .msix package and select 'Properties'. In the 'Digital Signatures' tab, select the certificate and click on 'Details'. In the 'Digital Signature Details' window, click on 'View Certificate', and then 'Install Certificate'. In the 'Certificate Import Wizard', check the 'Store Location' as 'Local Machine'. Click on 'Next'. Select the 'Place all certificates in the following store' radio button and browse to 'Trusted People'. Click on 'Next', and then 'Finish'. Now that you've installed the certificate, try installing the app.
+            4. In the 'Select and configure packages' settings, you can choose to either generate an app bundle or a package. For the purpose of these labs, let's create a package. Choose 'Never' in the dropdown menu for 'Generate app bundle'. Select x64 checkbox for 'Select the packages to create and the solution configuration mappings'. Click on 'Create'.
 
-    7. Launch the app.
+            5. In the 'Finished creating package' pop-up, click on the 'Output location' and open the package 'MyEmployees.Package_1.0.0.0_x64_Debug_Test'. Double click on the .msix package to install the app.
+
+                  **Note:** If the certificate you used to sign the app is not trusted by your machine, you will not be able to install the package. 
+
+                  To install the certificate on your local machine, right click on the .msix package and select 'Properties'. In the 'Digital Signatures' tab, select the certificate and click on 'Details'. In the 'Digital Signature Details' window, click on 'View Certificate', and then 'Install Certificate'. In the 'Certificate Import Wizard', check the 'Store Location' as 'Local Machine'. Click on 'Next'. Select the 'Place all certificates in the following store' radio button and browse to 'Trusted People'. Click on 'Next', and then 'Finish'. 
+
+                  Now that you've installed the certificate, try installing the app.
+
+            6. Launch the app.
 
 6. Open Task Manager from the Windows Start Menu and click on 'More Details'. The 'Processes' tab shows the running app processes and their device resource usage. Notice the 'MyEmployees' app details here.
 
@@ -102,13 +108,13 @@ MyEmployees is a basic Desktop app that displays employee records and their deta
 
 8. To stop running the application, simply exit it.
 
-  If you were debugging, you can also stop debugging by pressing Shift+F5 or clicking the red square 'Stop Debugging' option on the Application Insights Toolbar.
+      If you were debugging, you can also stop debugging by pressing Shift+F5 or clicking the red square 'Stop Debugging' option on the Application Insights Toolbar.
 
 9. Cleanup:
 
-  To uninstall the app, click on the Windows start menu and search for MyEmployees, right click on the MyEmployees app and select 'Uninstall'.
+      To uninstall the app, click on the Windows start menu and search for MyEmployees, right click on the MyEmployees app and select 'Uninstall'.
 
-  Discard any changes made to this local branch if you are just trying out the features. From GitHub Desktop Client, from the Branch menu, select 'Discard all changes'.
+      Discard any changes made to this local branch if you are just trying out the features. From GitHub Desktop Client, from the Branch menu, select 'Discard all changes'.
 
 10. Check out the video at the end of each exercise to see how to run the sample and how the feature works and looks like.
 
