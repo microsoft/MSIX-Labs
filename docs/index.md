@@ -72,7 +72,7 @@ MyEmployees is a basic Desktop app that displays employee records and their deta
 
 4. To build the solution, in the Standard Toolbar Options, select Configuration - Debug, Platform - x64 and Project - MyEmployees.Package. Click 'Build Solution' from the main menu Build dropdown.
 
-   <img src="Images/buildconfig.PNG" alt="build configuration" width=90%>
+   <img src="https://github.com/microsoft/MSIX-Labs/blob/master/docs/Images/buildconfig.png" alt="build configuration" width=90%>
 
 5. To run the application you can choose either of the following options:
 
@@ -172,7 +172,7 @@ packageCatalog.PackageUpdating += OnPackageUpdating;
 4. Create a text file in 'C:\temp', name it version.txt and write 2.0.0.1 in it. This file is referenced by the MyEmployees app for the latest version available. In our case, since the latest version i.e. 2.0.0.1 is greater than the app version i.e. 1.0.0.1, the app will want to update itself.
 5. Now publish another version of the MyEmployees app from Visual Studio, but edit the version number to 2.0.0.1, and save that to 'C:\temp'. Rename it to MyEmployees.Package.msixbundle. Note that this version should be a .msixbundle file, since the app update feature code looks for a .msixbundle file to update the app.
 6. Test out the update feature in the MyEmployees app by selecting Menu -> Check for updates. Try installing the update, wait for the app to update and restart, and verify the Version in the MyEmployees App Settings.
-7. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+7. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/appupdate.mp4" type="video/mp4">
@@ -241,7 +241,7 @@ This is the entry point for the background task in the appxmanifest file.
 
 8. Test out the update feature in the MyEmployees app by clicking on the 'Update Now' box. Try installing the update, wait for the app to update and restart, and verify the Version in the MyEmployees App Settings.
 
-9. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+9. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/backgroundtask.mp4" type="video/mp4">
@@ -302,7 +302,7 @@ public static void ImplementToastNotification()
 
 8. Test out the update feature in the MyEmployees app by clicking on MyEmployees Menu -> Check for updates and selecting 'Update now'. Wait for the app to update and restart, and verify the Version in the MyEmployees App Settings.
 
-9. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+9. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/toast.mp4" type="video/mp4">
@@ -359,7 +359,7 @@ private static async Task DownloadNewEmployeesRecordsAsync()
 
 5. Go to Date and time settings from the Windows start menu and change the time zone. This should trigger the background task, and when it detects new employee records, they are automatically fetched using the background transfer feature and updated in the app window.
 
-6. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+6. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/bgtransfer.mp4" type="video/mp4">
@@ -404,7 +404,7 @@ public static async Task<StorageFile> PickFileAsync()
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
 3. Notice that the Version in the MyEmployees App Settings is now 1.0.0.5
 4. Click on the corresponding 'Img' column for the employee record you wish to update, select 'Upload new picture' and pick the image from the File Explorer window. See it get reflected in the MyEmployees app window.
-5. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+5. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/picker.mp4" type="video/mp4">
@@ -443,7 +443,7 @@ public static async void LaunchMailApp(string email)
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
 3. Notice that the Version in the MyEmployees App Settings is now 1.0.0.6
 4. Click on any employee 'Img -> View picture' to launch the Photos app. Click on any employee Email to launch the Mail app. Click on any employee Address to launch Bing Maps.
-5. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+5. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/launcher.mp4" type="video/mp4">
@@ -477,7 +477,7 @@ public static void InitiateShare()
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
 3. Notice that the Version in the MyEmployees App Settings is now 1.0.0.7
 4. Click on any employee 'Img -> Share picture' to launch the share window and choose any app on your device to share the picture.
-5. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+5. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/share.mp4" type="video/mp4">
@@ -546,7 +546,7 @@ public static async Task<StorageFolder> LoadHrData(Windows.ApplicationModel.Pack
 
 6. Notice that the Version in the MyEmployees App Settings is now 1.0.0.8. Scroll down the App Settings window and you will find the optional package 'MyEmployeesHRPackage' under 'App add-ons & downloadable content'.
 
-7. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+7. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/optionalpackage.mp4" type="video/mp4">
@@ -646,7 +646,7 @@ public static async Task<ValueSet> CallAppServiceAsync(string packageFamilyName,
 
 6. Notice that the Version in the MyEmployees App Settings is now 1.0.0.9. Also notice that the app service 'MyEmployeesCalcService' shows up in the Windows Start Menu.
 
-7. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section. Don't forget to uninstall the app service too.
+7. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section. Don't forget to uninstall the app service too.
 
 <video width="100%" controls>
   <source src="DemoVideos/appservice.mp4" type="video/mp4">
@@ -722,7 +722,7 @@ public static async void InitiateAndExecuteAppExtensions()
 
 6. Click on the MyEmployees 'Menu -> Change background image' option and notice the background image has changed in the app window.
 
-7. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section. Don't forget to uninstall the app service and app extension too.
+7. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section. Don't forget to uninstall the app service and app extension too.
 
 <video width="100%" controls>
   <source src="DemoVideos/appextension.mp4" type="video/mp4">
@@ -770,7 +770,7 @@ public static async void ExportData(IList data)
 3. You will need to install the optional package, app service and app extension as explained in previous exercises to see all the features work together, although the WinRT component is not coupled with those, and will work independently as long as the main MyEmployees app is installed.
 4. Notice that the Version in the MyEmployees App Settings is now 1.0.0.11
 5. To test the WinRT component, create a csv file in 'C:\temp' and name it 'emp.csv'. Click on the MyEmployees 'Menu -> Export employee data' option and select the file emp.csv you just created. A pop up dialog box indicates that the file was successfully saved. Verify that the file emp.csv has all the employee records.
-6. Cleanup your environment as specified in the [MyEmployees app setup](#MyEmployees-app-setup) section.
+6. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
   <source src="DemoVideos/winrt.mp4" type="video/mp4">
