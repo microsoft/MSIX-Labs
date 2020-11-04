@@ -72,7 +72,7 @@ MyEmployees is a basic Desktop app that displays employee records and their deta
 
 4. To build the solution, in the Standard Toolbar Options, select Configuration - Debug, Platform - x64 and Project - MyEmployees.Package. Click 'Build Solution' from the main menu Build dropdown.
 
-   <img src="https://github.com/microsoft/MSIX-Labs/blob/master/docs/Images/buildconfig.png" alt="build configuration" width=90%>
+   ![build configuration](Images/buildconfig.png)
 
 5. To run the application you can choose either of the following options:
 
