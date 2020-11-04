@@ -1,5 +1,5 @@
 ## Overview
-MSIX Labs project is an effort to offer hands-on labs to help people become familar the different areas of MSIX. The content can also be customized and become a basis for internal training.
+This section of MSIX Labs is geared towards IT Pros. Download the **ITProLabs.2008.zip** file from the [releases](https://github.com/microsoft/MSIX-Labs/releases) page to get started with the labs.
 
 ## Related training material
 The MSIX overview video talks through the core concepts of MSIX.  We recommend watching the overview training video prior to performing the labs.
