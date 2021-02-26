@@ -7,12 +7,12 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="MyEmployees"
+    Name="MyEmployeesFinance"
     Publisher="CN=Contoso Software"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>MyEmployees</DisplayName>
+    <DisplayName>MyEmployeesFinance</DisplayName>
     <PublisherDisplayName>Contoso Software (FOR LAB USE ONLY)</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -31,8 +31,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="MyEmployees"
-        Description="MyEmployees.Package"
+        DisplayName="MyEmployeesFinance"
+        Description="MyEmployeesFinance.Package"
         BackgroundColor="transparent"
         Square44x44Logo="Images\Square44x44Logo.png" Square150x150Logo="Images\MediumTile.png">
         <uap:SplashScreen Image="Images\SplashScreen.png" />

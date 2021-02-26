@@ -85,12 +85,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyEmployees.PluginInterface\MyEmployees.PluginInterface.csproj">
-      <Project>{a8814208-9b34-41c9-b0d0-b31a6c11af27}</Project>
-      <Name>MyEmployees.PluginInterface</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
