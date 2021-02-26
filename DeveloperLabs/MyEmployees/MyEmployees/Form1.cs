@@ -97,13 +97,30 @@ namespace ExportDataLibrary
         {
             string result = Assembly.GetExecutingAssembly().Location;
             int index = result.LastIndexOf("\\");
-            string dbPath = $"{result.Substring(0, index)}\\Employees.db";
+            string EmpdbPath = $"{result.Substring(0, index)}\\Employees.db";
+            string EmpFinancedbPath = $"{result.Substring(0, index)}\\EmployeesFinance.db";
+            bool reademp = true; // whether to read employees.db or not
 
-            SQLiteConnection connection = new SQLiteConnection($"Data Source= {dbPath}");
-            using (SQLiteCommand command = new SQLiteCommand(connection))
+            SQLiteConnection Empconnection = new SQLiteConnection($"Data Source= {EmpdbPath}");
+            SQLiteConnection EmpFinanceconnection = new SQLiteConnection($"Data Source= {EmpFinancedbPath}");
+            using (SQLiteCommand command = new SQLiteCommand(EmpFinanceconnection))
             {
-                connection.Open();
-                command.CommandText = "SELECT * FROM Employees";
+                // open connection with Employees.db if present
+                SQLiteCommand empcommand = new SQLiteCommand(Empconnection);
+                Empconnection.Open();
+                empcommand.CommandText = "SELECT * FROM Employees";
+                SQLiteDataReader empreader = null;
+                try
+                {
+                    empreader = empcommand.ExecuteReader();
+                }
+                catch
+                {
+                    reademp = false;
+                }
+
+                EmpFinanceconnection.Open();
+                command.CommandText = "SELECT * FROM EmployeesFinance";
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -111,10 +128,20 @@ namespace ExportDataLibrary
                         Employee employee = new Employee
                         {
                             EmployeeId = int.Parse(reader[0].ToString()),
-                            FirstName = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
-                            Email = reader[3].ToString()
+                            Email = reader[1].ToString(),
+                            Role = reader[2].ToString(),
+                            AnnualCompensation = double.Parse(reader[3].ToString()),
+                            AnnualBonus = double.Parse(reader[4].ToString())
                         };
+                        // if reading employees.db too
+                        if (reademp == true && empreader.Read())
+                        {
+                            if(employee.EmployeeId == int.Parse(empreader[0].ToString()))
+                            {
+                                employee.FirstName = empreader[1].ToString();
+                                employee.LastName = empreader[2].ToString();
+                            }
+                        }
 
                         employeeBindingSource.Add(employee);
                     }
