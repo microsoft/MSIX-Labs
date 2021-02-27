@@ -140,7 +140,11 @@
     <Content Include="Employees.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="icon_MyEmployeesFinance.png" />
     <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmployeesFinance.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\DataSources\LobApp.Entities.Employee.datasource">
