@@ -107,11 +107,11 @@ namespace ExportDataLibrary
             {
                 // open connection with Employees.db if present
                 SQLiteCommand empcommand = new SQLiteCommand(Empconnection);
-                Empconnection.Open();
                 empcommand.CommandText = "SELECT * FROM Employees";
                 SQLiteDataReader empreader = null;
                 try
                 {
+                    Empconnection.Open();
                     empreader = empcommand.ExecuteReader();
                 }
                 catch
