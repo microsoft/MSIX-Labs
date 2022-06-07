@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using MyEmployees.Entities;
+using MyEmployees.Helpers;
 using MyEmployees.PluginInterface;
 using Newtonsoft.Json;
 using NLog;
@@ -8,9 +9,12 @@ using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel;
+using Windows.Foundation;
+using Windows.Management.Deployment;
 
 namespace ExportDataLibrary
 {
@@ -32,8 +36,70 @@ namespace ExportDataLibrary
         {
             LoadConfig();
             LoadData();
+            AddAppInstaller(getAppInstallerUri());
             CheckKioskMode();
             //await CheckForUpdates();
+        }
+
+        // Retrieves the URI of the .appinstaller which is embedded in the application (MyEmployees) package
+        public static string getAppInstallerUri()
+        {
+            string uriPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\..\\Update.appinstaller";
+            return uriPath;
+        }
+
+        // If there is not an associated .appinstaller file with the package,
+        // this function adds the .appinstaller referred to by inputPackageUri
+        public static void AddAppInstaller(String inputPackageUri)
+        {
+            AppInstallerInfo info = Package.Current.GetAppInstallerInfo();
+            if (info == null && inputPackageUri != null)
+            {
+
+                Uri packageUri = new Uri(inputPackageUri);
+                PackageManager packageManager = new PackageManager();
+                IAsyncOperationWithProgress<DeploymentResult, DeploymentProgress> deploymentOperation = null;
+                try
+                {
+                    deploymentOperation = packageManager.AddPackageByAppInstallerFileAsync(
+                            packageUri,
+                            AddPackageByAppInstallerOptions.ForceTargetAppShutdown,
+                            null);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                // Register the active instance of an application for restart
+                uint res = RelaunchHelper.RegisterApplicationRestart(null, RelaunchHelper.RestartFlags.NONE);
+
+                // Listen to the event that the deployment is complete
+                ManualResetEvent opCompletedEvent = new ManualResetEvent(false);
+                deploymentOperation.Completed = (depProgress, status) => { opCompletedEvent.Set(); };
+                opCompletedEvent.WaitOne();
+
+                // Check the status of the operation
+                if (deploymentOperation.Status == AsyncStatus.Error)
+                {
+                    DeploymentResult deploymentResult = deploymentOperation.GetResults();
+                    Console.WriteLine("Error code: {0}", deploymentOperation.ErrorCode);
+                    Console.WriteLine("Error text: {0}", deploymentResult.ErrorText);
+
+                }
+                else if (deploymentOperation.Status == AsyncStatus.Canceled)
+                {
+                    Console.WriteLine("Association canceled");
+                }
+                else if (deploymentOperation.Status == AsyncStatus.Completed)
+                {
+                    Console.WriteLine("Association succeeded");
+                }
+                else
+                {
+                    Console.WriteLine("Association status unknown");
+                }
+            }
         }
 
         private async Task CheckForUpdates()
