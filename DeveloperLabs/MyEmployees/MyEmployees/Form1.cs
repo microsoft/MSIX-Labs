@@ -44,7 +44,15 @@ namespace ExportDataLibrary
         // Retrieves the URI of the .appinstaller which is embedded in the application (MyEmployees) package
         public static string getAppInstallerUri()
         {
-            string uriPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\..\\Update.appinstaller";
+            string uriPath = null;
+            try
+            {
+                uriPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\..\\Update.appinstaller";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             return uriPath;
         }
 
