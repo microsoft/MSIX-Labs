@@ -44,6 +44,7 @@ The master branch contains all the features and you can checkout the master bran
 | ------------------------------------------ | ------------------------------------------------------------ |
 | Basic Desktop app: MyEmployees             | [dev-labs-myemployees](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-myemployees) |
 | Exercise 1: App update                     | [dev-labs-exercise-1-appupdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-1-appupdate) |
+| Exercise 1.5: Embedded .Appinstaller       | [dev-labs-embedded-appinstaller](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-embedded-appinstaller) |
 | Exercise 2: Background Task                | [dev-labs-exercise-2-backgroundtask](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-2-backgroundtask) |
 | Exercise 3: Toast Notification             | [dev-labs-exercise-3-toast](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-3-toast) |
 | Exercise 4: Background Transfer            | [dev-labs-exercise-4-bgtransfer](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-4-bgtransfer) |
@@ -133,7 +134,7 @@ The app update feature checks whether there is a newer version of the app availa
 
 The Scenario.cs file contains the functions for all feature scenarios added in these exercises. The function InitiateAppUpdate() is responsible for checking for the update and initiating the process.
 
-```
+```cs
 /// <summary>
 /// Initiates the scenario app update
 /// </summary>
@@ -153,13 +154,13 @@ public static void InitiateAppUpdate()
 
 The function AddPackageAsync is responsible for updating the application and relaunching it. This update is performed when the latest available version is larger than the app version. 
 
-```
+```cs
 deploymentOperation = packageManager.AddPackageAsync(packageUri, null, DeploymentOptions.ForceApplicationShutdown);
 ```
 
 The following code snippet listens for the package update event, updates the progress bar and handles completion. It also handles the cancellation of the update upon failure and displays the error message.
 
-```
+```cs
 PackageCatalog packageCatalog = PackageCatalog.OpenForCurrentUser();
 packageCatalog.PackageUpdating += OnPackageUpdating;
 ```
@@ -179,6 +180,78 @@ packageCatalog.PackageUpdating += OnPackageUpdating;
   Your browser does not support the video tag.
 </video>
 
+## Exercise 1.5: Embedded .AppInstaller
+
+### What does this feature do?
+
+The embedded .AppInstaller feature allows developers to deploy a single MSIX package while simultaneously retaining the features enabled by the .AppInstaller file format. This means that developers can easily configure automatic update settings for the package. This feature also provides the functionality of being able to install the .MSIX package even if the .AppInstaller URI is inaccessible. 
+
+### What is the magic sauce here?
+
+**For Windows 10, version 2104 and newer (Min Version):**
+
+From Windows 10 SDK 2104 onwards, we can make use of the UAP13 schema which provides the AutoUpdate feature highlighted in the Package.appxmanifest in the code below:
+
+```xml
+	<uap13:AutoUpdate>
+		<uap13:AppInstaller File="Update.appinstaller" />
+	</uap13:AutoUpdate>
+```
+
+Within the MyEmployees.Package itself, we embed the “Update.appinstaller” file with the settings we would like to update with and we can publish the package as normal. Essentially, users can install the package with the MSIX package and this property will associate the “Update.appinstaller” file when required.
+
+**For Windows 10, version 1809 and newer:**
+
+Since the UAP13 schema is not available, the AppInstaller file APIs are used to achieve similar results in the AddAppInstaller() function in Form1.cs. First, the GetAppInstallerInfo() method is used as a check to see if there is an AppInstaller file for the current package as shown below: 
+
+```cs
+	AppInstallerInfo info = Package.Current.GetAppInstallerInfo();
+	if (info == null && inputPackageUri != null)
+		{
+	...
+```
+
+If there is not an AppInstaller file for the current package (i.e. if info==null), then the AddPackageByAppInstallerFileAsync() function is used to add one:
+
+```cs
+	deploymentOperation = packageManager.AddPackageByAppInstallerFileAsync(
+		packageUri,
+		AddPackageByAppInstallerOptions.ForceTargetAppShutdown,
+		null);
+```
+
+After this, the application is restarted to trigger the first update and bring the application to the newest version.
+
+### How do I run this sample?
+
+1. Checkout branch ‘dev-labs-embedded-appinstaller’ from Github Desktop Client.
+2. Select the appropriate minimum platform version depending on what versions you want to build the package for. Right click on MyEmployees.Package > Properties, and change the “Target Version” and “Min Version”.
+3. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages
+4. Check Sideloading and Enable Automatic Updates.
+5. Ensure the output location is “C:\temp\” and set the version to 2.0.0.0. 
+6. Publish the application
+7. Create an “endpoint.appInstaller” file in “C:\temp\” and use a text editor to add the following to it and save the file:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller
+	Uri="file:///C:/temp/endpoint.appinstaller"
+	Version="2.0.0.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
+	<MainBundle
+		Name="MyEmployees"
+		Version="2.0.0.0"
+		Publisher="CN=Contoso Software"
+		Uri="file:///C:/temp/MyEmployees.Package_2.0.0.0_Test/MyEmployees.Package_2.0.0.0_x64.msixbundle" />
+	<UpdateSettings>
+		<OnLaunch
+			HoursBetweenUpdateChecks="0" />
+	</UpdateSettings>
+</AppInstaller>
+```
+
+Now, if you publish and install an MSIX package with version prior to 2.0.0.0 or debug the application, you will notice that it will automatically update to 2.0.0.0.
+To build understanding of how this sample can be manipulated, open “Update.appinstaller” in MyEmployees.Package and test different UpdateSettings.
+
 ## Exercise 2: Background Task
 
 ### What does this feature do?
@@ -189,7 +262,7 @@ This sample configures a background task for the MyEmployees app that gets trigg
 
 The function InitiateBackgroundCheck() in Scenario.cs initiates and registers and sets the trigger for the background task which is referenced in the MyEmployees appxmanifest file. The [out-of-process task](https://docs.microsoft.com/en-us/windows/uwp/launch-resume/create-and-register-a-background-task) runs in the background, and when triggered, it calls the code to check for an available update, if yes, it pops up a UI box with the option for the user to update the app now or later.
 
-```
+```cs
 /// <summary>
 /// Initiates the scenario background task
 /// </summary>
@@ -203,7 +276,7 @@ public static void InitiateBackgroundCheck()
 
 This is the entry point for the background task in the appxmanifest file.
 
-```
+```xml
 <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundUpdate.BackgroundUpdateTask">
 <BackgroundTasks>
 <Task Type="systemEvent" />
@@ -217,13 +290,13 @@ This is the entry point for the background task in the appxmanifest file.
 
 2. In Visual Studio, open the BackgroundUpdateSample.cs file in MyEmployees -> Helpers, and comment the line:
 
-   ```
+   ```cs
    static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
    ```
 
    Uncomment the line:
 
-   ```
+   ```cs
    static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
    ```
 
@@ -258,7 +331,7 @@ This sample makes the background task feature more elegant by configuring toast 
 
 The function ImplementToastNotification() implements the toast notification and gets called after the background task is completed.
 
-```
+```cs
 public static void ImplementToastNotification()
 {
     ...
@@ -278,13 +351,13 @@ public static void ImplementToastNotification()
 
 2. In Visual Studio, open the BackgroundUpdateSample.cs file in MyEmployees -> Helpers, and comment the line:
 
-   ```
+   ```cs
    static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
    ```
 
    Uncomment the line:
 
-   ```
+   ```cs
    static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
    ```
 
@@ -319,7 +392,7 @@ The background transfer feature enables the MyEmployees app to download new empl
 
 The function DownloadNewEmployeesRecordsAsync() is called when the background task is executed, which creates a new BackgroundDownloader object and updates the employee records.
 
-```
+```cs
 /// <summary>
 /// Creates a download operation and initiates the download from a web server
 /// </summary>
@@ -341,13 +414,13 @@ private static async Task DownloadNewEmployeesRecordsAsync()
 
 2. In Visual Studio, open the BackgroundUpdateSample.cs file in MyEmployees -> Helpers, and comment the line:
 
-   ```
+   ```cs
    static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
    ```
 
    Uncomment the line:
 
-   ```
+   ```cs
    static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
    ```
 
@@ -376,7 +449,7 @@ The picker feature modernizes the app even further by enabling users to pick a p
 
 The function PickFileAsync() in Scenario.cs sets up the file picker to allow the user to select and upload an image file for each employee.
 
-```
+```cs
 /// <summary>
 /// Pops up a file picker that allows the user to pick a single file
 /// </summary>
@@ -421,7 +494,7 @@ This feature configures launchers in the MyEmployees app for the Photos app (to 
 
 In the Scenarios.cs file, the functions LaunchMailApp(), LaunchPhotosApp() and LaunchMapsApp() are responsible for setting up launchers at different points in the MyEmployees app. For example, the function LaunchMailApp() is triggered through a click event on the employee email.
 
-```
+```cs
 /// <summary>
 /// Launches the default email app and creates a new message with the specified email address
 /// </summary>
@@ -460,7 +533,7 @@ This feature configures the share source feature for the MyEmployees app, so a u
 
 The function InitiateShare() in Scenarios.cs file registers the app as a share source and also sets up the UI for sharing the employee picture.
 
-```
+```cs
 /// <summary>
 /// Initiates the scenario share and pops up the standard share UI
 /// </summary>
@@ -494,13 +567,13 @@ Optional packages contain content that can be integrated with a main package. Th
 
 The optional package project 'OptionalPackage' is a separate UWP app project that is added as a dependent on the main MyEmployees project in the optional package's appxmanifest file.
 
-```
+```xml
 <uap3:MainPackageDependency Name="MyEmployees" />
 ```
 
 The function LoadDataFromOptionalPackageAsync() implements the main functionality of the optional package i.e. importing HR data, by calling LoadHrData(), which the updates the employee records with the data.
 
-```
+```cs
 /// <summary>
 /// Searches for an optional package in the main package dependencies
 /// </summary>
@@ -563,7 +636,7 @@ App services are UWP apps that provide services to other packaged apps. They are
 
 The app service project 'MyEmployeesCalcService' is a separate UWP app project, and 'MyAppService' is a Windows Runtime Component, that serves as the calculator service. This service cannot directly be referenced by the MyEmployees app, so the 'MyEmployeesCalcService' serves as the provider to link MyEmployees to the calc service via the appxmanifest file.
 
-```
+```xml
 <uap:Extension Category="windows.appService" EntryPoint="MyAppService.AnnualCompCalculator">
 <uap3:AppService Name="com.microsoft.AnnualCompCalculator" uap4:SupportsMultipleInstances="true"/>
 </uap:Extension>
@@ -571,7 +644,7 @@ The app service project 'MyEmployeesCalcService' is a separate UWP app project, 
 
  The function CallAppServiceAsync() is where the magic happens. This function establishes a connection to the app service, which is running in the background, and passes it employee information like hours worked, hourly compensation, and receives the total compensation calculated by the service in an asynchronous way.
 
-```
+```cs
 /// <summary>
 /// Establishes a connection to an AppService and calls the service
 /// </summary>
@@ -619,7 +692,7 @@ public static async Task<ValueSet> CallAppServiceAsync(string packageFamilyName,
 
       In the example below, it is "MyEmployeesCalcService_rv8ym4y7mg4aw".
 
-      ```
+      ```cs
       private async void calculateAnnualCompensationToolStripMenuItem_Click(object sender, EventArgs e)
       {
           if (employeeHourlyComp != null && employeeHoursWorked != null)
@@ -665,7 +738,7 @@ In this exercise, the app extension called 'MyEmployeesImageExtension' allows th
 
 The project 'MyEmployeesImageExtension' is a UWP project that is declared as an app extension in its appxmanifest.
 
-```
+```xml
 <uap3:Extension Category="windows.appExtension">
 <uap3:AppExtension Name="com.microsoft.contosoassetext"
 Id="BackgroundImage"
@@ -677,7 +750,7 @@ PublicFolder="Public">
 
 The MyEmployees app is registered as an app extension host in its appxmanifest so that it can be aware of the app extension.
 
-```
+```xml
 <uap3:Extension Category="windows.appExtensionHost">
 <uap3:AppExtensionHost>
 <uap3:Name>com.microsoft.contosoassetext</uap3:Name>
@@ -687,7 +760,7 @@ The MyEmployees app is registered as an app extension host in its appxmanifest s
 
 The function InitiateAndExecuteAppExtensions() serves as an entry point and executes the scenario by calling ExecuteImageLoadScenario() to load the image and set it as the MyEmployees background.
 
-```
+```cs
 /// <summary>
 /// Initiates and executes the scenario app extensions
 /// </summary>
@@ -741,7 +814,7 @@ The WinRT Component project 'RuntimeComponent' implements the export data functi
 
 The function ExportData() implements the meat of the functionality.
 
-```
+```cs
 /// <summary>
 /// Calls an API from the WinRT Component, which exports employee hr data to a specified file
 /// </summary>
