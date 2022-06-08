@@ -20,7 +20,7 @@ namespace MyEmployees.Helpers
         /// <returns>
         /// This function returns S_OK on success or one of the following error codes:
         /// E_FAIL for internal error.
-        /// E_INVALIDARG if rhe specified command line is too long.
+        /// E_INVALIDARG if the specified command line is too long.
         /// </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
         internal static extern uint RegisterApplicationRestart(string pwzCommandLine, RestartFlags dwFlags);
