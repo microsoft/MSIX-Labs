@@ -63,7 +63,9 @@ namespace ExportDataLibrary
             AppInstallerInfo info = Package.Current.GetAppInstallerInfo();
             if (info == null && inputPackageUri != null)
             {
-
+                // Register the active instance of an application for restart
+                uint res = RelaunchHelper.RegisterApplicationRestart(null, RelaunchHelper.RestartFlags.NONE);
+                
                 Uri packageUri = new Uri(inputPackageUri);
                 PackageManager packageManager = new PackageManager();
                 IAsyncOperationWithProgress<DeploymentResult, DeploymentProgress> deploymentOperation = null;
@@ -78,9 +80,6 @@ namespace ExportDataLibrary
                 {
                     Console.WriteLine(e.Message);
                 }
-
-                // Register the active instance of an application for restart
-                uint res = RelaunchHelper.RegisterApplicationRestart(null, RelaunchHelper.RestartFlags.NONE);
 
                 // Listen to the event that the deployment is complete
                 ManualResetEvent opCompletedEvent = new ManualResetEvent(false);
