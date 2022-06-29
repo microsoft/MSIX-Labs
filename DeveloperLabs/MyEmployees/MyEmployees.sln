@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEmployees.PluginInterface
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MyEmployees.Package", "MyEmployees.Package\MyEmployees.Package.wapproj", "{80DB0989-9307-466B-ABA0-9F82D424CBD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEmployeesUpdater", "MyEmployees.Updater\MyEmployeesUpdater.csproj", "{8077E806-9F02-48EC-AA21-95B2E8FCC83E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,26 @@ Global
 		{80DB0989-9307-466B-ABA0-9F82D424CBD8}.Release|x86.ActiveCfg = Release|x86
 		{80DB0989-9307-466B-ABA0-9F82D424CBD8}.Release|x86.Build.0 = Release|x86
 		{80DB0989-9307-466B-ABA0-9F82D424CBD8}.Release|x86.Deploy.0 = Release|x86
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|x64.Build.0 = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Debug|x86.Build.0 = Debug|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|ARM.Build.0 = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|ARM64.Build.0 = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|x64.ActiveCfg = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|x64.Build.0 = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|x86.ActiveCfg = Release|Any CPU
+		{8077E806-9F02-48EC-AA21-95B2E8FCC83E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
