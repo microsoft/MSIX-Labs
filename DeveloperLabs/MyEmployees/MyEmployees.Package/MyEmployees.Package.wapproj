@@ -159,8 +159,11 @@
     <Content Include="Images\WideTile.scale-150.png" />
     <Content Include="Images\WideTile.scale-200.png" />
     <Content Include="Images\WideTile.scale-400.png" />
+    <Content Include="MyEmployeesUpdater.exe" />
+    <Content Include="MyEmployeesUpdater.exe.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyEmployees.Updater\MyEmployeesUpdater.csproj" />
     <ProjectReference Include="..\MyEmployees\MyEmployees.csproj" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />

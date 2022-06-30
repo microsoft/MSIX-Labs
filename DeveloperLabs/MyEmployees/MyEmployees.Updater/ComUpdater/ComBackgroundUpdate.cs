@@ -23,8 +23,8 @@ namespace MyEmployeesUpdater.ComUpdater
     public sealed class ComBackgroundUpdate : IBackgroundTask
     {
         private volatile int cleanupTask = 0;
-        private readonly string newVersion = "2.0.0.0";
-        private readonly string inputPackageUri = "C:\\temp\\MyEmployees.Package_2.0.0.0_Test\\MyEmployees.Package_2.0.0.0_x64.msixbundle";
+        string newVersion = "2.0.0.0";
+        string inputPackageUri = "c:\\temp\\MyEmployees.Package_2.0.0.0_Test\\MyEmployees.Package_2.0.0.0_x64.msixbundle";
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             // Add the cancellation handler.
@@ -43,23 +43,23 @@ namespace MyEmployeesUpdater.ComUpdater
                 // If a new version exists, update the application
                 if (updVersion.CompareTo(currentVersion) > 0)
                 {
-                    MessageBox.Show("updating");
                     // Adds the newer package using the AddPackageAsync() method
                     PackageManager packageManager = new PackageManager();
                     IAsyncOperationWithProgress<DeploymentResult, DeploymentProgress> deploymentOperation = null;
                     Uri packageUri = new Uri(inputPackageUri);
 
-                    try
-                    {
+                    //try
+                    //{
                         deploymentOperation = packageManager.AddPackageAsync(
                             packageUri,
                             null,
-                            DeploymentOptions.ForceApplicationShutdown);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                            DeploymentOptions.None);
+                    MessageBox.Show(currentVersion.ToString() + " " + updVersion.ToString());
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    Console.WriteLine(e.Message);
+                    //}
 
                     // Listen to the event that the deployment is complete
                     ManualResetEvent opCompletedEvent = new ManualResetEvent(false);
@@ -68,8 +68,12 @@ namespace MyEmployeesUpdater.ComUpdater
 
                 }
             }
+            return;
         }
 
+        /// <summary>
+        /// Background Task Cancellation Handler
+        /// </summary>
         public void OnCanceled(IBackgroundTaskInstance taskInstance, BackgroundTaskCancellationReason cancellationReason)
         {
             // Set the flag to indicate to the main thread that it should stop performing

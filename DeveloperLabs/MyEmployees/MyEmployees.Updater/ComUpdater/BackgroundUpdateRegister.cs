@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace MyEmployeesUpdater.ComUpdater
 {
-    class BackgroundUpdateRegister
+    public class BackgroundUpdateRegister
     {
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace MyEmployeesUpdater.ComUpdater
         /// </summary>
         /// <param name="name">A name for the background task.</param>
         /// <param name="trigger">The trigger for the background task.</param>
-        public void RegisterBackgroundTaskWithSystem(string taskName, IBackgroundTrigger trigger)
+        public static void RegisterBackgroundTaskWithSystem(string taskName, IBackgroundTrigger trigger)
         {
             // If the task is already active, the function will be returned here rather than registering another instance of it
             foreach (var regIterator in BackgroundTaskRegistration.AllTasks)
@@ -63,7 +63,7 @@ namespace MyEmployeesUpdater.ComUpdater
         /// aforementioned API, it will be the process that has instances of the
         /// background task invoked.
         /// </summary>
-        static void RegisterProcessForBackgroundTask(Type backgroundTaskClass)
+        public static void RegisterProcessForBackgroundTask(Type backgroundTaskClass)
         {
             RegistrationServices registrationServices = new RegistrationServices();
             registrationServices.RegisterTypeForComClients(backgroundTaskClass,

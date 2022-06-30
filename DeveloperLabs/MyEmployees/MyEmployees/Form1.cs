@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Background;
 
 namespace ExportDataLibrary
 {
@@ -30,6 +31,7 @@ namespace ExportDataLibrary
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MyEmployeesUpdater.ComUpdater.BackgroundUpdateRegister.RegisterBackgroundTaskWithSystem("BackgroundUpdater", new TimeTrigger(15, false));
             LoadConfig();
             LoadData();
             CheckKioskMode();
