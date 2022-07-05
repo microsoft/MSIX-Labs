@@ -184,7 +184,7 @@ packageCatalog.PackageUpdating += OnPackageUpdating;
 
 ### What does this feature do?
 
-The embedded .AppInstaller feature allows developers to deploy a single MSIX package while simultaneously retaining the features enabled by the .AppInstaller file format. This means that developers can easily configure automatic update settings for the package. This feature also provides the functionality of being able to install the .MSIX package even if the .AppInstaller URI is inaccessible. 
+This feature provides developers the ability to easily configure automatic update settings for the package. This feature also provides the functionality of being able to install the MSIX package even if the .AppInstaller URI is inaccessible (i.e It isn't available at the specified URI).  The embedded .AppInstaller feature allows developers to deploy a single MSIX package while simultaneously retaining the features enabled by the .AppInstaller file format.
 
 ### What is the magic sauce here?
 
@@ -220,7 +220,7 @@ If there is not an AppInstaller file for the current package (i.e. if info==null
 		null);
 ```
 
-After this, the application is restarted to trigger the first update and bring the application to the newest version.
+After this, the application is restarted to trigger the first update and bring the application to the newest version. It is important to note that regardless of how the .AppInstaller is used, the package will not be updated until at least the first launch of the application.
 
 ### How do I run this sample?
 
