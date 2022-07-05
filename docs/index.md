@@ -184,7 +184,7 @@ packageCatalog.PackageUpdating += OnPackageUpdating;
 
 ### What does this feature do?
 
-This feature provides developers the ability to easily configure automatic update settings for the package. This feature also provides the functionality of being able to install the MSIX package even if the .AppInstaller URI is inaccessible (i.e It isn't available at the specified URI).  The embedded .AppInstaller feature allows developers to deploy a single MSIX package while simultaneously retaining the features enabled by the .AppInstaller file format.
+This feature provides developers the ability to easily configure automatic update settings for the package. This feature also provides the functionality of being able to install the MSIX package even if the .AppInstaller URI is inaccessible (i.e the file doesn't exist at the specified URI). The embedded .AppInstaller feature allows developers to deploy a single MSIX package while simultaneously retaining the features enabled by the .AppInstaller file format.
 
 ### What is the magic sauce here?
 
