@@ -13,7 +13,6 @@ using Windows.ApplicationModel;
 using Windows.Management.Deployment;
 using Windows.Foundation;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace MyEmployeesUpdater.ComUpdater
 {
@@ -48,18 +47,17 @@ namespace MyEmployeesUpdater.ComUpdater
                     IAsyncOperationWithProgress<DeploymentResult, DeploymentProgress> deploymentOperation = null;
                     Uri packageUri = new Uri(inputPackageUri);
 
-                    //try
-                    //{
+                    try
+                    {
                         deploymentOperation = packageManager.AddPackageAsync(
                             packageUri,
                             null,
                             DeploymentOptions.None);
-                    MessageBox.Show(currentVersion.ToString() + " " + updVersion.ToString());
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    Console.WriteLine(e.Message);
-                    //}
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
 
                     // Listen to the event that the deployment is complete
                     ManualResetEvent opCompletedEvent = new ManualResetEvent(false);

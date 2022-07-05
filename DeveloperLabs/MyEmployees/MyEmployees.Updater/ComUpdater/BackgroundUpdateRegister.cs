@@ -10,7 +10,6 @@ using Windows.ApplicationModel.Background;
 // Required for COM registration API (RegisterTypeForComClients).
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace MyEmployeesUpdater.ComUpdater
 {
@@ -18,7 +17,7 @@ namespace MyEmployeesUpdater.ComUpdater
     {
 
         /// <summary>
-        /// Register a background task with the specified taskEntryPoint, name, and trigger
+        /// Register a background task with the specified name and trigger
         /// </summary>
         /// <param name="name">A name for the background task.</param>
         /// <param name="trigger">The trigger for the background task.</param>
@@ -41,15 +40,16 @@ namespace MyEmployeesUpdater.ComUpdater
 
             // Register the task if it has not been registered
             BackgroundTaskRegistration registration;
-            //try
-            //{
+            try
+            {
             registration = builder.Register();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //    registration = null;
-            //}
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                registration = null;
+                return;
+            }
             RegisterProcessForBackgroundTask(typeof(ComBackgroundUpdate));
         }
 

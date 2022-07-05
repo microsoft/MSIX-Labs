@@ -43,7 +43,7 @@
 		<Extensions>
 			<com:Extension Category="windows.comServer">
 				<com:ComServer>
-					<com:ExeServer Executable="MyEmployeesUpdater.exe" DisplayName="BackgroundUpdater">
+					<com:ExeServer Executable="MyEmployeesUpdater\MyEmployeesUpdater.exe" DisplayName="BackgroundUpdater">
 						<com:Class Id="095D47F4-030E-4AFF-8963-9CB33D63F682" DisplayName="Background Updater" />
 					</com:ExeServer>
 				</com:ComServer>

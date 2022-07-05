@@ -17,7 +17,7 @@ namespace MyEmployeesUpdater
         [STAThread]
         static void Main()
         {
-
+            BackgroundUpdateRegister.RegisterBackgroundTaskWithSystem("BackgroundUpdater", new TimeTrigger(15, false));
         }
     }
 }
