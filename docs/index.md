@@ -220,7 +220,7 @@ If there is not an AppInstaller file for the current package (i.e. if info==null
 		null);
 ```
 
-After this, the application is restarted to trigger the first update and bring the application to the newest version. It is important to note that regardless of how the .AppInstaller is used, the package will not be updated until at least the first launch of the application.
+After this, the application is restarted to trigger the first update and bring the application to the newest version. It is important to note that regardless of how the .AppInstaller is used, the package will not be updated until at least the first launch of the application. Refer to [this article](https://docs.microsoft.com/en-us/windows/msix/app-installer/update-settings) for .Appinstaller update settings to see different options. 
 
 ### How do I run this sample?
 
