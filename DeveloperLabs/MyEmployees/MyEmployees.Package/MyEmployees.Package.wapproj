@@ -102,6 +102,12 @@
     </AppxManifest>
     <None Include="MyEmployees.Package_TemporaryKey.pfx" />
   </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.2"/>
+			<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="[10.0.22621.1]">
+				<IncludeAssets>build</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
   <ItemGroup>
     <Content Include="..\PSF\PackageFiles\VFS\ProgramFilesX86\Contoso\MyEmployees\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
