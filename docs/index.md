@@ -56,6 +56,7 @@ The master branch contains all the features and you can checkout the master bran
 | Exercise 9: App Service                    | [dev-labs-exercise-9-appservice](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-9-appservice) |
 | Exercise 10: App Extension                 | [dev-labs-exercise-10-appextension](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-10-appextension) |
 | Exercise 11: WinRT Component               | [dev-labs-exercise-11-winrtcomponent](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-11-winrtcomponent) |
+| Exercise 12: Windows App SDK Add-On        | [dev-labs-WinAppSDK](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-WinAppSDK) |
 | MyEmployees with all modern features added | [master](https://github.com/microsoft/MSIX-Labs/tree/master) |
 
 ## MyEmployees app setup
@@ -378,6 +379,22 @@ Finally, in order to register the process for the background task, we register M
 
 
 ### How do I run this sample?
+
+1. Checkout branch ‘dev-labs-ComBackgroundUpdater’ from the Github Desktop Client.
+2. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages.
+3. Check Sideloading and uncheck Automatic Updates.
+4. Ensure the output location is “C:\temp\” and set the version to 2.0.0.0. 
+5. Publish the application.
+
+At this point, you can either run the MyEmployees application and wait 15 minutes for the background task to trigger which you will be alerted of with a popup, or you can follow these steps to trigger it via debugging: 
+
+6. Open the “Package.appxmanifest” file in MyEmployees.Package.
+7. Navigate to the Packaging tab.
+8. Change the package name from MyEmployees to any unique package name.
+9. Debug MyEmployees.Package using the appropriate CPU architecture and click Local Machine.
+10. To trigger the background task, click on the arrow next to Lifecycle Events -> BackgroundUpdater.
+11. At this point, you will notice another instance of MyEmployees open, with the opened version being a packaged MyEmployees 2.0.0.0 versus the unpackaged MyEmployees 12. that runs when debugging in Visual Studio.
+13. To build an understanding of how the sample works, try to edit the background task to change its functionality (e.g. Creating a popup with all primes from 1 to 100).
 
 ## Exercise 3: Toast Notification
 
@@ -907,6 +924,58 @@ public static async void ExportData(IList data)
   <source src="DemoVideos/winrt.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+## Exercise 12: Windows App SDK
+
+### What does this feature do?
+
+The Windows App SDK is a set of additional developer components and tools that extends an application’s capabilities. The framework provides a unified set of APIs and tools that can be used in a consistent way by any desktop app on Windows 11 and downlevel to Windows 10, version 1809. This sample implements the WinAppSDK by adding and then deploying the correct packages.
+
+### What is the magic sauce here?
+
+As you can note [here](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/deploy-packaged-apps), a requirement for this feature to work is that the project use C# .NET 6. This meant that MyEmployees had to be upgraded from .NET 4.7.2 to a supported framework version. To do this, the [.NET Upgrade Assistant](https://dotnet.microsoft.com/en-us/platform/upgrade-assistant) was used. This upgrade assistant is completely open-source, with the goal of enabling developers to modernize their applications.
+
+Once the application is updated to .NET 6, there are two steps in accessing the full functionality of the WinAppSDK:
+
+1. Deploy the Windows App SDK framework package
+2. Call the Deployment API
+
+To deploy the WinAppSDK framework, we first add the following Nuget packages to the application to provide the functionality:
+
+And then reference them in the package’s project file (MyEmployees.Package.wapproj):
+```xml
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.2"/>
+			<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="[10.0.22621.1]">
+				<IncludeAssets>build</IncludeAssets>
+			</PackageReference>
+	</ItemGroup>
+```
+The issue with only referencing the framework package is that the Windows application model does not support declaring a dependency on the Main and Singleton packages. What this means is that in order to access features in these packages, we have to deploy them separately. This can be achieved by either redistributing the MSIX packages using your own install method (not recommended) or deploying with the Deployment API’s (used in this example). 
+
+Deploying these packages gives us additional functionality. You should call the Deployment API after your app's process is initialized, but before your app uses Windows App SDK runtime features that use the Singleton package (e.g., Push Notifications).
+
+In this case, the initializeWinAppRuntime() function in WinAppSDK.cs initializes the packages as follows:
+
+```cs
+            if (DeploymentManager.GetStatus().Status != DeploymentStatus.Ok)
+            {
+                var initializeTask = Task.Run(() => DeploymentManager.Initialize());
+                initializeTask.Wait();
+```
+
+In the event that it is necessary to check if the packages are already deployed, we can use the getWinAppRuntimeStatus(). At this point, you can publish the application or add WinAppSDK features outlined [here](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/).
+
+### How do I run this sample?
+
+1. Checkout branch ‘dev-labs-WinAppSDK’ from Github Desktop Client.
+2. To toggle between deploying the additional packages and not deploying them, comment/uncomment the following line in Form1.cs.
+```cs
+MyEmployees.Helpers.WinAppSDK.initializeWinAppRuntime();
+```
+3. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages
+4. Run the application and if you have chosen to deploy the additional packages, you should see a pop-up indicating its success.
+5. To build an understanding of how the sample works, try to implement a WinAppSDK API or attempt to use a feature from the singleton package to see what errors you get.
 
 ## Conclusion
 
