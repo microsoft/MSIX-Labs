@@ -46,6 +46,7 @@ The master branch contains all the features and you can checkout the master bran
 | Exercise 1: App update                     | [dev-labs-exercise-1-appupdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-1-appupdate) |
 | Exercise 1.5: Embedded .Appinstaller       | [dev-labs-embedded-appinstaller](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-embedded-appinstaller) |
 | Exercise 2: Background Task                | [dev-labs-exercise-2-backgroundtask](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-2-backgroundtask) |
+| Exercise 2.5 COM Background Task           | [dev-labs-ComBackgroundUpdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-ComBackgroundUpdate) |
 | Exercise 3: Toast Notification             | [dev-labs-exercise-3-toast](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-3-toast) |
 | Exercise 4: Background Transfer            | [dev-labs-exercise-4-bgtransfer](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-4-bgtransfer) |
 | Exercise 5: Picker                         | [dev-labs-exercise-5-picker](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-5-picker) |
@@ -320,6 +321,63 @@ This is the entry point for the background task in the appxmanifest file.
   <source src="DemoVideos/backgroundtask.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+## Exercise 2.5: COM Background Task
+
+### What does this feature do?
+
+This feature enables developers to add lightweight COM background tasks that can run in response to various system and time-based triggers. In this instance, the background task is being used to update the MyEmployees application, however, the background task can run (almost) independently as it runs in its own process. This allows for a multi-purpose feature that stems from the main application. **One caveat is that this is only supported on Windows Build 2004 and newer.** If you are developing for older versions of Windows, consider Exercise 2's Background Tasks.
+
+### What is the magic sauce here?
+
+For this feature to work, we leverage the Microsoft.Windows.SDK.Contracts package to enable crucial WinRT APIs and interfaces. To implement the COM background task as described here(Create and register a win32 background task - UWP applications | Microsoft Docs), we implement the IBackgroundTask interface in a separate application “MyEmployeesUpdater” in ComBackgroundUpdate.cs.
+
+```cs
+public sealed class ComBackgroundUpdate : IBackgroundTask
+{
+	public void Run(IBackgroundTaskInstance taskInstance)
+	{
+		…
+```
+
+This class contains the Run(IBackgroundTaskInstance taskInstance) method which executes the contained code when the associated background task is triggered.
+
+In order to build and register the background task, we use the BackgroundTaskBuilder and BackgroundTaskRegistration classes in BackgroundUpdateRegister.cs with the appropriate task trigger, name, and class GUID:
+
+```cs
+// Build an instance of the task with taskEntrypoint, name, and trigger
+BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+builder.SetTrigger(trigger);
+builder.Name = taskName;
+builder.SetTaskEntryPointClsid(typeof(ComBackgroundUpdate).GUID);
+// Register the task if it has not been registered
+BackgroundTaskRegistration registration;
+try
+{
+	registration = builder.Register();
+}
+catch (Exception e)
+{
+	Console.WriteLine(e.Message);
+	registration = null;
+	return;
+}
+```
+
+Finally, in order to register the process for the background task, we register MyEmployeesUpdater as the COM server for the specified background task class:
+
+```cs
+	public static void RegisterProcessForBackgroundTask(Type backgroundTaskClass)
+        {
+		RegistrationServices registrationServices = new RegistrationServices();
+		registrationServices.RegisterTypeForComClients(backgroundTaskClass,
+                                                               RegistrationClassContext.LocalServer,
+                                                               RegistrationConnectionType.MultipleUse);
+        }
+```
+
+
+### How do I run this sample?
 
 ## Exercise 3: Toast Notification
 
