@@ -33,6 +33,7 @@ namespace ExportDataLibrary
             LoadConfig();
             LoadData();
             CheckKioskMode();
+            MyEmployees.Helpers.WinAppSDK.initializeWinAppRuntime();
             //await CheckForUpdates();
         }
 
