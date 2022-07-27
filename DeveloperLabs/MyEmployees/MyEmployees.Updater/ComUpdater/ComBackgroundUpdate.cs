@@ -16,14 +16,22 @@ using System.Threading;
 
 namespace MyEmployeesUpdater.ComUpdater
 {
+    // COM attributes to determine how the background task can be accessed
     [ComVisible(true)]
     [Guid("095D47F4-030E-4AFF-8963-9CB33D63F682")]
+    
     // Implements the background updater task using the IBackgroundTask interface
     public sealed class ComBackgroundUpdate : IBackgroundTask
     {
         private volatile int cleanupTask = 0;
+        
+        // Hard-coded variables representing the new version number and the URI to the package you would like to update to
         string newVersion = "2.0.0.0";
         string inputPackageUri = "c:\\temp\\MyEmployees.Package_2.0.0.0_Test\\MyEmployees.Package_2.0.0.0_x64.msixbundle";
+        
+        /// <summary>
+        /// This is a required method that performs the work of the background task.
+        /// </summary>
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             // Add the cancellation handler.
