@@ -23,6 +23,7 @@ Ensure that your device has these prerequisites installed before you begin the l
   - Universal Windows Platform development
   - Windows 10 SDK
 - [.NET Core 3 SDK](https://dotnet.microsoft.com/download/dotnet-core) (install the latest version) (You can also do this by running the command '*winget install Microsoft.dotnet*' from your terminal.)
+- **For exercise 12**, ensure you have the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed as well
 - [GitHub Desktop Client](https://desktop.github.com/) (You can also do this by running the command '*winget install GitHub.GitHubDesktop*' from your terminal.)
 - [Activate Developer Mode](https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development) on your device to be able to run the labs samples.
 
