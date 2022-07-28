@@ -23,6 +23,7 @@ Ensure that your device has these prerequisites installed before you begin the l
   - Universal Windows Platform development
   - Windows 10 SDK
 - [.NET Core 3 SDK](https://dotnet.microsoft.com/download/dotnet-core) (install the latest version) (You can also do this by running the command '*winget install Microsoft.dotnet*' from your terminal.)
+- **For exercise 12**, ensure you have the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed as well
 - [GitHub Desktop Client](https://desktop.github.com/) (You can also do this by running the command '*winget install GitHub.GitHubDesktop*' from your terminal.)
 - [Activate Developer Mode](https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development) on your device to be able to run the labs samples.
 
@@ -44,7 +45,9 @@ The master branch contains all the features and you can checkout the master bran
 | ------------------------------------------ | ------------------------------------------------------------ |
 | Basic Desktop app: MyEmployees             | [dev-labs-myemployees](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-myemployees) |
 | Exercise 1: App update                     | [dev-labs-exercise-1-appupdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-1-appupdate) |
+| Exercise 1.5: Embedded .Appinstaller       | [dev-labs-embedded-appinstaller](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-embedded-appinstaller) |
 | Exercise 2: Background Task                | [dev-labs-exercise-2-backgroundtask](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-2-backgroundtask) |
+| Exercise 2.5 COM Background Task           | [dev-labs-ComBackgroundUpdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-ComBackgroundUpdate) |
 | Exercise 3: Toast Notification             | [dev-labs-exercise-3-toast](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-3-toast) |
 | Exercise 4: Background Transfer            | [dev-labs-exercise-4-bgtransfer](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-4-bgtransfer) |
 | Exercise 5: Picker                         | [dev-labs-exercise-5-picker](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-5-picker) |
@@ -54,6 +57,7 @@ The master branch contains all the features and you can checkout the master bran
 | Exercise 9: App Service                    | [dev-labs-exercise-9-appservice](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-9-appservice) |
 | Exercise 10: App Extension                 | [dev-labs-exercise-10-appextension](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-10-appextension) |
 | Exercise 11: WinRT Component               | [dev-labs-exercise-11-winrtcomponent](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-11-winrtcomponent) |
+| Exercise 12: Windows App SDK Add-On        | [dev-labs-WinAppSDK](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-WinAppSDK) |
 | MyEmployees with all modern features added | [master](https://github.com/microsoft/MSIX-Labs/tree/master) |
 
 ## MyEmployees app setup
@@ -133,7 +137,7 @@ The app update feature checks whether there is a newer version of the app availa
 
 The Scenario.cs file contains the functions for all feature scenarios added in these exercises. The function InitiateAppUpdate() is responsible for checking for the update and initiating the process.
 
-```
+```cs
 /// <summary>
 /// Initiates the scenario app update
 /// </summary>
@@ -153,13 +157,13 @@ public static void InitiateAppUpdate()
 
 The function AddPackageAsync is responsible for updating the application and relaunching it. This update is performed when the latest available version is larger than the app version. 
 
-```
+```cs
 deploymentOperation = packageManager.AddPackageAsync(packageUri, null, DeploymentOptions.ForceApplicationShutdown);
 ```
 
 The following code snippet listens for the package update event, updates the progress bar and handles completion. It also handles the cancellation of the update upon failure and displays the error message.
 
-```
+```cs
 PackageCatalog packageCatalog = PackageCatalog.OpenForCurrentUser();
 packageCatalog.PackageUpdating += OnPackageUpdating;
 ```
@@ -179,6 +183,78 @@ packageCatalog.PackageUpdating += OnPackageUpdating;
   Your browser does not support the video tag.
 </video>
 
+## Exercise 1.5: Embedded .AppInstaller
+
+### What does this feature do?
+
+This feature provides developers the ability to easily configure automatic update settings for the package. This feature also provides the functionality of being able to install the MSIX package even if the .AppInstaller URI is inaccessible (i.e the file doesn't exist at the specified URI). The embedded .AppInstaller feature allows developers to deploy a single MSIX package while simultaneously retaining the features enabled by the .AppInstaller file format.
+
+### What is the magic sauce here?
+
+**For Windows 10, version 2104 and newer (Min Version):**
+
+From Windows 10 SDK 2104 onwards, we can make use of the UAP13 schema which provides the AutoUpdate feature highlighted in the Package.appxmanifest in the code below:
+
+```xml
+	<uap13:AutoUpdate>
+		<uap13:AppInstaller File="Update.appinstaller" />
+	</uap13:AutoUpdate>
+```
+
+Within the MyEmployees.Package itself, we embed the “Update.appinstaller” file with the settings we would like to update with and we can publish the package as normal. Essentially, users can install the package with the MSIX package and this property will associate the “Update.appinstaller” file when required.
+
+**For Windows 10, version 1809 and newer:**
+
+Since the UAP13 schema is not available, the AppInstaller file APIs are used to achieve similar results in the AddAppInstaller() function in Form1.cs. First, the GetAppInstallerInfo() method is used as a check to see if there is an AppInstaller file for the current package as shown below: 
+
+```cs
+	AppInstallerInfo info = Package.Current.GetAppInstallerInfo();
+	if (info == null && inputPackageUri != null)
+		{
+	...
+```
+
+If there is not an AppInstaller file for the current package (i.e. if info==null), then the AddPackageByAppInstallerFileAsync() function is used to add one:
+
+```cs
+	deploymentOperation = packageManager.AddPackageByAppInstallerFileAsync(
+		packageUri,
+		AddPackageByAppInstallerOptions.ForceTargetAppShutdown,
+		null);
+```
+
+After this, the application is restarted to trigger the first update and bring the application to the newest version. It is important to note that regardless of how the .AppInstaller is used, the package will not be updated until at least the first launch of the application. Refer to [this article](https://docs.microsoft.com/en-us/windows/msix/app-installer/update-settings) for .Appinstaller update settings to see different options. 
+
+### How do I run this sample?
+
+1. Checkout branch ‘dev-labs-embedded-appinstaller’ from Github Desktop Client.
+2. Select the appropriate minimum platform version depending on what versions you want to build the package for. Right click on MyEmployees.Package > Properties, and change the “Target Version” and “Min Version”.
+3. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages
+4. Check Sideloading and Enable Automatic Updates.
+5. Ensure the output location is “C:\temp\” and set the version to 2.0.0.0. 
+6. Publish the application
+7. Create an “endpoint.appInstaller” file in “C:\temp\” and use a text editor to add the following to it and save the file:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller
+	Uri="file:///C:/temp/endpoint.appinstaller"
+	Version="2.0.0.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
+	<MainBundle
+		Name="MyEmployees"
+		Version="2.0.0.0"
+		Publisher="CN=Contoso Software"
+		Uri="file:///C:/temp/MyEmployees.Package_2.0.0.0_Test/MyEmployees.Package_2.0.0.0_x64.msixbundle" />
+	<UpdateSettings>
+		<OnLaunch
+			HoursBetweenUpdateChecks="0" />
+	</UpdateSettings>
+</AppInstaller>
+```
+
+Now, if you publish and install an MSIX package with version prior to 2.0.0.0 or debug the application, you will notice that it will automatically update to 2.0.0.0.
+To build understanding of how this sample can be manipulated, open “Update.appinstaller” in MyEmployees.Package and test different UpdateSettings.
+
 ## Exercise 2: Background Task
 
 ### What does this feature do?
@@ -189,7 +265,7 @@ This sample configures a background task for the MyEmployees app that gets trigg
 
 The function InitiateBackgroundCheck() in Scenario.cs initiates and registers and sets the trigger for the background task which is referenced in the MyEmployees appxmanifest file. The [out-of-process task](https://docs.microsoft.com/en-us/windows/uwp/launch-resume/create-and-register-a-background-task) runs in the background, and when triggered, it calls the code to check for an available update, if yes, it pops up a UI box with the option for the user to update the app now or later.
 
-```
+```cs
 /// <summary>
 /// Initiates the scenario background task
 /// </summary>
@@ -203,7 +279,7 @@ public static void InitiateBackgroundCheck()
 
 This is the entry point for the background task in the appxmanifest file.
 
-```
+```xml
 <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundUpdate.BackgroundUpdateTask">
 <BackgroundTasks>
 <Task Type="systemEvent" />
@@ -217,13 +293,13 @@ This is the entry point for the background task in the appxmanifest file.
 
 2. In Visual Studio, open the BackgroundUpdateSample.cs file in MyEmployees -> Helpers, and comment the line:
 
-   ```
+   ```cs
    static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
    ```
 
    Uncomment the line:
 
-   ```
+   ```cs
    static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
    ```
 
@@ -248,6 +324,79 @@ This is the entry point for the background task in the appxmanifest file.
   Your browser does not support the video tag.
 </video>
 
+## Exercise 2.5: COM Background Task
+
+### What does this feature do?
+
+This feature enables developers to add lightweight COM background tasks that can run in response to various system and time-based triggers. In this instance, the background task is being used to update the MyEmployees application, however, the background task can run (almost) independently as it runs in its own process. This allows for a multi-purpose feature that stems from the main application. **One caveat is that this is only supported on Windows Build 2004 and newer.** If you are developing for older versions of Windows, consider Exercise 2's Background Tasks.
+
+### What is the magic sauce here?
+
+For this feature to work, we leverage the Microsoft.Windows.SDK.Contracts package to enable crucial WinRT APIs and interfaces. To implement the COM background task as described here(Create and register a win32 background task - UWP applications | Microsoft Docs), we implement the IBackgroundTask interface in a separate application “MyEmployeesUpdater” in ComBackgroundUpdate.cs.
+
+```cs
+public sealed class ComBackgroundUpdate : IBackgroundTask
+{
+	public void Run(IBackgroundTaskInstance taskInstance)
+	{
+		…
+```
+
+This class contains the Run(IBackgroundTaskInstance taskInstance) method which executes the contained code when the associated background task is triggered.
+
+In order to build and register the background task, we use the BackgroundTaskBuilder and BackgroundTaskRegistration classes in BackgroundUpdateRegister.cs with the appropriate task trigger, name, and class GUID:
+
+```cs
+// Build an instance of the task with taskEntrypoint, name, and trigger
+BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+builder.SetTrigger(trigger);
+builder.Name = taskName;
+builder.SetTaskEntryPointClsid(typeof(ComBackgroundUpdate).GUID);
+// Register the task if it has not been registered
+BackgroundTaskRegistration registration;
+try
+{
+	registration = builder.Register();
+}
+catch (Exception e)
+{
+	Console.WriteLine(e.Message);
+	registration = null;
+	return;
+}
+```
+
+Finally, in order to register the process for the background task, we register MyEmployeesUpdater as the COM server for the specified background task class:
+
+```cs
+	public static void RegisterProcessForBackgroundTask(Type backgroundTaskClass)
+        {
+		RegistrationServices registrationServices = new RegistrationServices();
+		registrationServices.RegisterTypeForComClients(backgroundTaskClass,
+                                                               RegistrationClassContext.LocalServer,
+                                                               RegistrationConnectionType.MultipleUse);
+        }
+```
+
+
+### How do I run this sample?
+
+1. Checkout branch ‘dev-labs-ComBackgroundUpdater’ from the Github Desktop Client.
+2. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages.
+3. Check Sideloading and uncheck Automatic Updates.
+4. Ensure the output location is “C:\temp\” and set the version to 2.0.0.0. 
+5. Publish the application.
+
+At this point, you can either run the MyEmployees application and wait 15 minutes for the background task to trigger which you will be alerted of with a popup, or you can follow these steps to trigger it via debugging: 
+
+6. Open the “Package.appxmanifest” file in MyEmployees.Package.
+7. Navigate to the Packaging tab.
+8. Change the package name from MyEmployees to any unique package name.
+9. Debug MyEmployees.Package using the appropriate CPU architecture and click Local Machine.
+10. To trigger the background task, click on the arrow next to Lifecycle Events -> BackgroundUpdater.
+11. At this point, you will notice another instance of MyEmployees open, with the opened version being a packaged MyEmployees 2.0.0.0 versus the unpackaged MyEmployees 12. that runs when debugging in Visual Studio.
+13. To build an understanding of how the sample works, try to edit the background task to change its functionality (e.g. Creating a popup with all primes from 1 to 100).
+
 ## Exercise 3: Toast Notification
 
 ### What does this feature do?
@@ -258,7 +407,7 @@ This sample makes the background task feature more elegant by configuring toast 
 
 The function ImplementToastNotification() implements the toast notification and gets called after the background task is completed.
 
-```
+```cs
 public static void ImplementToastNotification()
 {
     ...
@@ -278,13 +427,13 @@ public static void ImplementToastNotification()
 
 2. In Visual Studio, open the BackgroundUpdateSample.cs file in MyEmployees -> Helpers, and comment the line:
 
-   ```
+   ```cs
    static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
    ```
 
    Uncomment the line:
 
-   ```
+   ```cs
    static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
    ```
 
@@ -319,7 +468,7 @@ The background transfer feature enables the MyEmployees app to download new empl
 
 The function DownloadNewEmployeesRecordsAsync() is called when the background task is executed, which creates a new BackgroundDownloader object and updates the employee records.
 
-```
+```cs
 /// <summary>
 /// Creates a download operation and initiates the download from a web server
 /// </summary>
@@ -341,13 +490,13 @@ private static async Task DownloadNewEmployeesRecordsAsync()
 
 2. In Visual Studio, open the BackgroundUpdateSample.cs file in MyEmployees -> Helpers, and comment the line:
 
-   ```
+   ```cs
    static MaintenanceTrigger trigger = new MaintenanceTrigger(15, true);
    ```
 
    Uncomment the line:
 
-   ```
+   ```cs
    static SystemTrigger trigger = new SystemTrigger(SystemTriggerType.TimeZoneChange, true);
    ```
 
@@ -376,7 +525,7 @@ The picker feature modernizes the app even further by enabling users to pick a p
 
 The function PickFileAsync() in Scenario.cs sets up the file picker to allow the user to select and upload an image file for each employee.
 
-```
+```cs
 /// <summary>
 /// Pops up a file picker that allows the user to pick a single file
 /// </summary>
@@ -421,7 +570,7 @@ This feature configures launchers in the MyEmployees app for the Photos app (to 
 
 In the Scenarios.cs file, the functions LaunchMailApp(), LaunchPhotosApp() and LaunchMapsApp() are responsible for setting up launchers at different points in the MyEmployees app. For example, the function LaunchMailApp() is triggered through a click event on the employee email.
 
-```
+```cs
 /// <summary>
 /// Launches the default email app and creates a new message with the specified email address
 /// </summary>
@@ -460,7 +609,7 @@ This feature configures the share source feature for the MyEmployees app, so a u
 
 The function InitiateShare() in Scenarios.cs file registers the app as a share source and also sets up the UI for sharing the employee picture.
 
-```
+```cs
 /// <summary>
 /// Initiates the scenario share and pops up the standard share UI
 /// </summary>
@@ -494,13 +643,13 @@ Optional packages contain content that can be integrated with a main package. Th
 
 The optional package project 'OptionalPackage' is a separate UWP app project that is added as a dependent on the main MyEmployees project in the optional package's appxmanifest file.
 
-```
+```xml
 <uap3:MainPackageDependency Name="MyEmployees" />
 ```
 
 The function LoadDataFromOptionalPackageAsync() implements the main functionality of the optional package i.e. importing HR data, by calling LoadHrData(), which the updates the employee records with the data.
 
-```
+```cs
 /// <summary>
 /// Searches for an optional package in the main package dependencies
 /// </summary>
@@ -563,7 +712,7 @@ App services are UWP apps that provide services to other packaged apps. They are
 
 The app service project 'MyEmployeesCalcService' is a separate UWP app project, and 'MyAppService' is a Windows Runtime Component, that serves as the calculator service. This service cannot directly be referenced by the MyEmployees app, so the 'MyEmployeesCalcService' serves as the provider to link MyEmployees to the calc service via the appxmanifest file.
 
-```
+```xml
 <uap:Extension Category="windows.appService" EntryPoint="MyAppService.AnnualCompCalculator">
 <uap3:AppService Name="com.microsoft.AnnualCompCalculator" uap4:SupportsMultipleInstances="true"/>
 </uap:Extension>
@@ -571,7 +720,7 @@ The app service project 'MyEmployeesCalcService' is a separate UWP app project, 
 
  The function CallAppServiceAsync() is where the magic happens. This function establishes a connection to the app service, which is running in the background, and passes it employee information like hours worked, hourly compensation, and receives the total compensation calculated by the service in an asynchronous way.
 
-```
+```cs
 /// <summary>
 /// Establishes a connection to an AppService and calls the service
 /// </summary>
@@ -619,7 +768,7 @@ public static async Task<ValueSet> CallAppServiceAsync(string packageFamilyName,
 
       In the example below, it is "MyEmployeesCalcService_rv8ym4y7mg4aw".
 
-      ```
+      ```cs
       private async void calculateAnnualCompensationToolStripMenuItem_Click(object sender, EventArgs e)
       {
           if (employeeHourlyComp != null && employeeHoursWorked != null)
@@ -665,7 +814,7 @@ In this exercise, the app extension called 'MyEmployeesImageExtension' allows th
 
 The project 'MyEmployeesImageExtension' is a UWP project that is declared as an app extension in its appxmanifest.
 
-```
+```xml
 <uap3:Extension Category="windows.appExtension">
 <uap3:AppExtension Name="com.microsoft.contosoassetext"
 Id="BackgroundImage"
@@ -677,7 +826,7 @@ PublicFolder="Public">
 
 The MyEmployees app is registered as an app extension host in its appxmanifest so that it can be aware of the app extension.
 
-```
+```xml
 <uap3:Extension Category="windows.appExtensionHost">
 <uap3:AppExtensionHost>
 <uap3:Name>com.microsoft.contosoassetext</uap3:Name>
@@ -687,7 +836,7 @@ The MyEmployees app is registered as an app extension host in its appxmanifest s
 
 The function InitiateAndExecuteAppExtensions() serves as an entry point and executes the scenario by calling ExecuteImageLoadScenario() to load the image and set it as the MyEmployees background.
 
-```
+```cs
 /// <summary>
 /// Initiates and executes the scenario app extensions
 /// </summary>
@@ -741,7 +890,7 @@ The WinRT Component project 'RuntimeComponent' implements the export data functi
 
 The function ExportData() implements the meat of the functionality.
 
-```
+```cs
 /// <summary>
 /// Calls an API from the WinRT Component, which exports employee hr data to a specified file
 /// </summary>
@@ -776,6 +925,58 @@ public static async void ExportData(IList data)
   <source src="DemoVideos/winrt.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+## Exercise 12: Windows App SDK
+
+### What does this feature do?
+
+The Windows App SDK is a set of additional developer components and tools that extends an application’s capabilities. The framework provides a unified set of APIs and tools that can be used in a consistent way by any desktop app on Windows 11 and downlevel to Windows 10, version 1809. This sample implements the WinAppSDK by adding and then deploying the correct packages.
+
+### What is the magic sauce here?
+
+As you can note [here](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/deploy-packaged-apps), a requirement for this feature to work is that the project use C# .NET 6. This meant that MyEmployees had to be upgraded from .NET 4.7.2 to a supported framework version. To do this, the [.NET Upgrade Assistant](https://dotnet.microsoft.com/en-us/platform/upgrade-assistant) was used. This upgrade assistant is completely open-source, with the goal of enabling developers to modernize their applications.
+
+Once the application is updated to .NET 6, there are two steps in accessing the full functionality of the WinAppSDK:
+
+1. Deploy the Windows App SDK framework package
+2. Call the Deployment API
+
+To deploy the WinAppSDK framework, we first add the following Nuget packages to the application to provide the functionality:
+
+And then reference them in the package’s project file (MyEmployees.Package.wapproj):
+```xml
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.2"/>
+			<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="[10.0.22621.1]">
+				<IncludeAssets>build</IncludeAssets>
+			</PackageReference>
+	</ItemGroup>
+```
+The issue with only referencing the framework package is that the Windows application model does not support declaring a dependency on the Main and Singleton packages. What this means is that in order to access features in these packages, we have to deploy them separately. This can be achieved by either redistributing the MSIX packages using your own install method (not recommended) or deploying with the Deployment API’s (used in this example). 
+
+Deploying these packages gives us additional functionality. You should call the Deployment API after your app's process is initialized, but before your app uses Windows App SDK runtime features that use the Singleton package (e.g., Push Notifications).
+
+In this case, the initializeWinAppRuntime() function in WinAppSDK.cs initializes the packages as follows:
+
+```cs
+            if (DeploymentManager.GetStatus().Status != DeploymentStatus.Ok)
+            {
+                var initializeTask = Task.Run(() => DeploymentManager.Initialize());
+                initializeTask.Wait();
+```
+
+In the event that it is necessary to check if the packages are already deployed, we can use the getWinAppRuntimeStatus(). At this point, you can publish the application or add WinAppSDK features outlined [here](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/).
+
+### How do I run this sample?
+
+1. Checkout branch ‘dev-labs-WinAppSDK’ from Github Desktop Client.
+2. To toggle between deploying the additional packages and not deploying them, comment/uncomment the following line in Form1.cs.
+```cs
+MyEmployees.Helpers.WinAppSDK.initializeWinAppRuntime();
+```
+3. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages
+4. Run the application and if you have chosen to deploy the additional packages, you should see a pop-up indicating its success.
+5. To build an understanding of how the sample works, try to implement a WinAppSDK API or attempt to use a feature from the singleton package to see what errors you get.
 
 ## Conclusion
 
