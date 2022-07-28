@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller
+	Uri="file:///C:/temp/endpoint.appinstaller"
+	Version="1.0.0.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
+	<MainBundle
+		Name="MyEmployees"
+		Version="1.0.0.0"
+		Publisher="CN=Contoso Software"
+		Uri="file:///C:/temp/MyEmployees.Package_2.0.0.0_Test/MyEmployees.Package_2.0.0.0_x64.msixbundle" />
+	<UpdateSettings>
+		<OnLaunch
+			HoursBetweenUpdateChecks="0" />
+	</UpdateSettings>
+</AppInstaller>

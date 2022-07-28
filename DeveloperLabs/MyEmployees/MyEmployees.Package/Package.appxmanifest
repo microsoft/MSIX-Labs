@@ -3,8 +3,11 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap13="http://schemas.microsoft.com/appx/manifest/uap/windows10/13"
+  xmlns:build="http://schemas.microsoft.com/developer/appx/2015/build"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  IgnorableNamespaces="uap mp rescap build uap13">
 
   <Identity
     Name="MyEmployees"
@@ -15,6 +18,9 @@
     <DisplayName>MyEmployees</DisplayName>
     <PublisherDisplayName>Contoso Software (FOR LAB USE ONLY)</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
+	  <uap13:AutoUpdate>
+		  <uap13:AppInstaller File="Update.appinstaller" />
+	  </uap13:AutoUpdate>
   </Properties>
 
   <Dependencies>
