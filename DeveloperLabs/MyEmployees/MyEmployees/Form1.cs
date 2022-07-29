@@ -11,8 +11,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel;
+
 using Windows.ApplicationModel.Background;
 using MyEmployeesUpdater.ComUpdater;
+
 namespace ExportDataLibrary
 {
     public partial class Form1 : Form
