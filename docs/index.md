@@ -47,7 +47,7 @@ The master branch contains all the features and you can checkout the master bran
 | Exercise 1: App update                     | [dev-labs-exercise-1-appupdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-1-appupdate) |
 | Exercise 1.5: Embedded .Appinstaller       | [dev-labs-embedded-appinstaller](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-embedded-appinstaller) |
 | Exercise 2: Background Task                | [dev-labs-exercise-2-backgroundtask](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-2-backgroundtask) |
-| Exercise 2.5 COM Background Task           | [dev-labs-ComBackgroundUpdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-ComBackgroundUpdate) |
+| Exercise 2.5: COM Background Task           | [dev-labs-ComBackgroundUpdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-ComBackgroundUpdate) |
 | Exercise 3: Toast Notification             | [dev-labs-exercise-3-toast](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-3-toast) |
 | Exercise 4: Background Transfer            | [dev-labs-exercise-4-bgtransfer](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-4-bgtransfer) |
 | Exercise 5: Picker                         | [dev-labs-exercise-5-picker](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-5-picker) |
