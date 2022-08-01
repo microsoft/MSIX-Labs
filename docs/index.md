@@ -332,7 +332,7 @@ This feature enables developers to add lightweight COM background tasks that can
 
 ### What is the magic sauce here?
 
-For this feature to work, we leverage the Microsoft.Windows.SDK.Contracts package to enable crucial WinRT APIs and interfaces. To implement the COM background task as described here(Create and register a win32 background task - UWP applications | Microsoft Docs), we implement the IBackgroundTask interface in a separate application “MyEmployeesUpdater” in ComBackgroundUpdate.cs.
+For this feature to work, we leverage the Microsoft.Windows.SDK.Contracts package to enable crucial WinRT APIs and interfaces. To implement the COM background task as described [here](https://docs.microsoft.com/en-us/windows/uwp/launch-resume/create-and-register-a-winmain-background-task), we use the IBackgroundTask interface in a separate application “MyEmployeesUpdater” in ComBackgroundUpdate.cs.
 
 ```cs
 public sealed class ComBackgroundUpdate : IBackgroundTask
