@@ -57,6 +57,7 @@ namespace MyEmployeesUpdater.ComUpdater
 
                     try
                     {
+                        // Note: AddPackageAsync is inconsistent on certain versions of Windows 10. Consider using AddPackageByUriAsync() instead.
                         deploymentOperation = packageManager.AddPackageAsync(
                             packageUri,
                             null,
