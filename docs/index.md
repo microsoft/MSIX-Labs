@@ -47,7 +47,7 @@ The master branch contains all the features and you can checkout the master bran
 | Exercise 1: App update                     | [dev-labs-exercise-1-appupdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-1-appupdate) |
 | Exercise 1.5: Embedded .Appinstaller       | [dev-labs-embedded-appinstaller](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-embedded-appinstaller) |
 | Exercise 2: Background Task                | [dev-labs-exercise-2-backgroundtask](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-2-backgroundtask) |
-| Exercise 2.5 COM Background Task           | [dev-labs-ComBackgroundUpdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-ComBackgroundUpdate) |
+| Exercise 2.5: COM Background Task           | [dev-labs-ComBackgroundUpdate](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-ComBackgroundUpdate) |
 | Exercise 3: Toast Notification             | [dev-labs-exercise-3-toast](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-3-toast) |
 | Exercise 4: Background Transfer            | [dev-labs-exercise-4-bgtransfer](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-4-bgtransfer) |
 | Exercise 5: Picker                         | [dev-labs-exercise-5-picker](https://github.com/microsoft/MSIX-Labs/tree/dev-labs-exercise-5-picker) |
@@ -228,11 +228,17 @@ After this, the application is restarted to trigger the first update and bring t
 ### How do I run this sample?
 
 1. Checkout branch ‘dev-labs-embedded-appinstaller’ from Github Desktop Client.
+
 2. Select the appropriate minimum platform version depending on what versions you want to build the package for. Right click on MyEmployees.Package > Properties, and change the “Target Version” and “Min Version”.
+
 3. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages
+
 4. Check Sideloading and Enable Automatic Updates.
+
 5. Ensure the output location is “C:\temp\” and set the version to 2.0.0.0. 
-6. Publish the application
+
+6. Publish the application.
+
 7. Create an “endpoint.appInstaller” file in “C:\temp\” and use a text editor to add the following to it and save the file:
 
 ```xml
@@ -332,7 +338,7 @@ This feature enables developers to add lightweight COM background tasks that can
 
 ### What is the magic sauce here?
 
-For this feature to work, we leverage the Microsoft.Windows.SDK.Contracts package to enable crucial WinRT APIs and interfaces. To implement the COM background task as described here(Create and register a win32 background task - UWP applications | Microsoft Docs), we implement the IBackgroundTask interface in a separate application “MyEmployeesUpdater” in ComBackgroundUpdate.cs.
+For this feature to work, we leverage the Microsoft.Windows.SDK.Contracts package to enable crucial WinRT APIs and interfaces. To implement the COM background task as described [here](https://docs.microsoft.com/en-us/windows/uwp/launch-resume/create-and-register-a-winmain-background-task), we use the IBackgroundTask interface in a separate application “MyEmployeesUpdater” in ComBackgroundUpdate.cs.
 
 ```cs
 public sealed class ComBackgroundUpdate : IBackgroundTask
@@ -382,19 +388,29 @@ Finally, in order to register the process for the background task, we register M
 ### How do I run this sample?
 
 1. Checkout branch ‘dev-labs-ComBackgroundUpdater’ from the Github Desktop Client.
+
 2. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages.
+
 3. Check Sideloading and uncheck Automatic Updates.
+
 4. Ensure the output location is “C:\temp\” and set the version to 2.0.0.0. 
+
 5. Publish the application.
 
 At this point, you can either run the MyEmployees application and wait 15 minutes for the background task to trigger which you will be alerted of with a popup, or you can follow these steps to trigger it via debugging: 
 
 6. Open the “Package.appxmanifest” file in MyEmployees.Package.
+
 7. Navigate to the Packaging tab.
+
 8. Change the package name from MyEmployees to any unique package name.
+
 9. Debug MyEmployees.Package using the appropriate CPU architecture and click Local Machine.
+
 10. To trigger the background task, click on the arrow next to Lifecycle Events -> BackgroundUpdater.
+
 11. At this point, you will notice another instance of MyEmployees open, with the opened version being a packaged MyEmployees 2.0.0.0 versus the unpackaged MyEmployees 12. that runs when debugging in Visual Studio.
+
 13. To build an understanding of how the sample works, try to edit the background task to change its functionality (e.g. Creating a popup with all primes from 1 to 100).
 
 ## Exercise 3: Toast Notification
@@ -550,9 +566,13 @@ public static async Task<StorageFile> PickFileAsync()
 ### How do I run this sample?
 
 1. Checkout branch 'dev-labs-exercise-5-picker' from your GitHub Desktop Client.
+
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
+
 3. Notice that the Version in the MyEmployees App Settings is now 1.0.0.5
+
 4. Click on the corresponding 'Img' column for the employee record you wish to update, select 'Upload new picture' and pick the image from the File Explorer window. See it get reflected in the MyEmployees app window.
+
 5. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
@@ -589,9 +609,13 @@ public static async void LaunchMailApp(string email)
 ### How do I run this sample?
 
 1. Checkout branch 'dev-labs-exercise-6-launcher' from your GitHub Desktop Client.
+
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
+
 3. Notice that the Version in the MyEmployees App Settings is now 1.0.0.6
+
 4. Click on any employee 'Img -> View picture' to launch the Photos app. Click on any employee Email to launch the Mail app. Click on any employee Address to launch Bing Maps.
+
 5. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
@@ -623,9 +647,13 @@ public static void InitiateShare()
 ### How do I run this sample?
 
 1. Checkout branch 'dev-labs-exercise-7-share' from your GitHub Desktop Client.
+
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
+
 3. Notice that the Version in the MyEmployees App Settings is now 1.0.0.7
+
 4. Click on any employee 'Img -> Share picture' to launch the share window and choose any app on your device to share the picture.
+
 5. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
@@ -915,10 +943,15 @@ public static async void ExportData(IList data)
 ### How do I run this sample?
 
 1. Checkout branch 'dev-labs-exercise-11-winrtcomponent' from your GitHub Desktop Client.
+
 2. Use the steps listed in the MyEmployees app setup section to build and run the application. Again, you can choose to either debug and run the application from Visual Studio or publish it as an MSIX package and install it.
+
 3. You will need to install the optional package, app service and app extension as explained in previous exercises to see all the features work together, although the WinRT component is not coupled with those, and will work independently as long as the main MyEmployees app is installed.
+
 4. Notice that the Version in the MyEmployees App Settings is now 1.0.0.11
+
 5. To test the WinRT component, create a csv file in 'C:\temp' and name it 'emp.csv'. Click on the MyEmployees 'Menu -> Export employee data' option and select the file emp.csv you just created. A pop up dialog box indicates that the file was successfully saved. Verify that the file emp.csv has all the employee records.
+
 6. Cleanup your environment as specified in the [MyEmployees app setup](#myemployees-app-setup) section.
 
 <video width="100%" controls>
@@ -970,12 +1003,16 @@ In the event that it is necessary to check if the packages are already deployed,
 ### How do I run this sample?
 
 1. Checkout branch ‘dev-labs-WinAppSDK’ from Github Desktop Client.
+
 2. To toggle between deploying the additional packages and not deploying them, comment/uncomment the following line in Form1.cs.
 ```cs
 MyEmployees.Helpers.WinAppSDK.initializeWinAppRuntime();
 ```
+
 3. In Visual Studio, right-click on MyEmployees.Package > Publish > Create App Packages
+
 4. Run the application and if you have chosen to deploy the additional packages, you should see a pop-up indicating its success.
+
 5. To build an understanding of how the sample works, try to implement a WinAppSDK API or attempt to use a feature from the singleton package to see what errors you get.
 
 ## Conclusion
