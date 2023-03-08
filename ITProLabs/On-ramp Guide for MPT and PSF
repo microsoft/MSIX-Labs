@@ -1,9 +1,11 @@
 ## Introduction to MSIX
+
 MSIX is a modern app packaging technology that provides a cleaner and more reliable experience for app installation. To learn more about MSIX as a packaging format and all its benefits, check out the [MSIX Overview documentation](https://learn.microsoft.com/en-us/windows/msix/).
 This guide will be helpful to you if you have existing installers that are either no longer in development, or you don't own the source code. If you do own the source code, check out the documentation on [how to generate an MSIX from source code](https://learn.microsoft.com/en-us/windows/msix/desktop/source-code-overview).
 This documentation will show you how to use the MSIX Packaging Tool to create an MSIX package from any installer you have. Once you've got an MSIX, we've also got information on how to fix runtime issues using the Package Support Framework.
 
 ## Using the MSIX Packaging tool
+
 The MSIX Packaging Tool enables you to repackage your existing desktop applications to the MSIX format. It offers both an interactive UI and a command line for conversions and gives you the ability to convert an application without having the source code.
 Step 1: Create a Hyper-V environment
 When preparing to convert your application to MSIX, we recommend that you get a [clean environment](https://learn.microsoft.com/en-us/windows/msix/packaging-tool/prepare-your-environment). We recommend you create a virtual environment for MSIX packaging projects using the [Hyper-V Quick Create](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine) feature. This feature is available starting in Windows 10, version 1709. In case this is not enabled, it can be activated by using ‘Turn Windows features on or off’.
@@ -16,7 +18,6 @@ Step 3: Start using the MSIX Packaging Tool
 Let us look at an example of converting a sample desktop application (PowerBI desktop in this case) to a MSIX package using MSIX Packaging Tool.
 
 Open the MSIX Packaging Tool, and click on Application Package to create a new package for your application:
- 
 Select the first option – ‘Create Package on this computer’, and then click ‘Next’.
- 
+
 Click ‘Next’ once your MSIX Packaging Tool driver is installed and Windows updates disabled (if applicable). In case the driver installation fails, please refer to the ‘Known Issues’ section below for possible workarounds. Also, please restart your VM if you get a ‘Pending Reboot’ message in the Additional preparations section.
