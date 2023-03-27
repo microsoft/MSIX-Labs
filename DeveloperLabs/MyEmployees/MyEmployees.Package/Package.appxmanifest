@@ -4,7 +4,8 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  IgnorableNamespaces="uap rescap com">
 
   <Identity
     Name="MyEmployees"
@@ -39,6 +40,15 @@
         <uap:DefaultTile Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\WideTile.png" Square310x310Logo="Images\LargeTile.png"/>
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
+		<Extensions>
+			<com:Extension Category="windows.comServer">
+				<com:ComServer>
+					<com:ExeServer Executable="MyEmployeesUpdater\MyEmployeesUpdater.exe" DisplayName="BackgroundUpdater">
+						<com:Class Id="095D47F4-030E-4AFF-8963-9CB33D63F682" DisplayName="Background Updater" />
+					</com:ExeServer>
+				</com:ComServer>
+			</com:Extension>
+		</Extensions>	
     </Application>
   </Applications>
 

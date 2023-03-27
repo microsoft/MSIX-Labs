@@ -51,8 +51,8 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>80db0989-9307-466b-aba0-9f82d424cbd8</ProjectGuid>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>MyEmployees.Package_TemporaryKey.pfx</PackageCertificateKeyFile>
     <EntryPointProjectUniqueName>..\MyEmployees\MyEmployees.csproj</EntryPointProjectUniqueName>
@@ -161,6 +161,7 @@
     <Content Include="Images\WideTile.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyEmployees.Updater\MyEmployeesUpdater.csproj" />
     <ProjectReference Include="..\MyEmployees\MyEmployees.csproj" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
