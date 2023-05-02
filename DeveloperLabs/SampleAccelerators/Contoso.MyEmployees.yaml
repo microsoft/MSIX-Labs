@@ -1,0 +1,24 @@
+PackageName: MyEmployee
+PackageVersion: 1.0.0.0
+PublisherName: Contoso
+EligibleForConversion: Yes
+ConversionStatus: Successful - Fix Required
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: There were create file errors in process monitor
+    Fix:
+      FixType: InstalledLocationVirtualization
+      Reference: https://docs.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap10-installedlocationvirtualization
+      FixDetails:
+        UpdateActionsAttributes:
+          ModifiedItems: keep
+          DeletedItems: reset
+          AddedItems: keep
+MinimumPSFVersion: 1.0.200410.1
+Edition: Windows 10 Enterprise Evaluation
+MinimumOSVersion: 20H2
+MinimumOSBuild: 19042.1237
+Architecture: 64
+MSIXConversionToolVersion: 1.2021.709.0
+AcceleratorVersion: 1.0.0
