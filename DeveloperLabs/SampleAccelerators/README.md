@@ -13,7 +13,7 @@ This happens in this partciluar case as the MSIX App does not have write access 
 To solve this problem, you can use the sample accelerator "Contoso.MyEmployees.yaml" during the conversion from MsixPackagingTool. 
 This will automatically add the InstalledLocationVirtualization tag to the MSIX package manifest.
 This redirects the log file writes into the install location to a safe location in the app data, where the application has write access.
-You can find the log file for the newly generated MSIX package here, "%localappdata%\Packages\MyEmployees_8h66172c634n0\LocalCache\Local\VFS\C$\ Program Files (x86)\Contoso\MyEmployees
+You can find the log file for the newly generated MSIX package here, "%localappdata%\Packages\MyEmployees_8h66172c634n0\LocalCache\Local\VFS\C$\ Program Files (x86)\Contoso\MyEmployees"
 
 ## Feedback
 
