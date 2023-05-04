@@ -4,7 +4,7 @@ This section of MSIX Developer Labs provides a sample accelerator that can be us
 ## What are Accelerators?
 
 An Accelerator provides an efficient way to capture important information regarding conversion of legacy applications to MSIX format
-Read more about [Accelerators](https://learn.microsoft.com/en-us/windows/msix/toolkit/msix-toolkit-overview) here. 
+Read more about [Accelerators](https://learn.microsoft.com/en-us/windows/msix/toolkit/accelerators) here. 
 
 ## Sample Accelerator
 When the given sample application "MyEmployees.msi" is packaged as an MSIX App using Msix Packaging tool, the logfile.txt is not being created.The logfile.txt tracks the events that occur during the usage of the application.
