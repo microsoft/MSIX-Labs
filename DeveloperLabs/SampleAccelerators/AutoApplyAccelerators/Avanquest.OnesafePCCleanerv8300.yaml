@@ -1,0 +1,33 @@
+# MSIX Conversion Accelerator
+PackageName: Onesafe PC Cleaner v8.3.0.0
+
+PackageVersion: 8.1.0.1
+
+PublisherName: Avanquest
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: Admin Access needed to run an app 
+    Fix:
+      FixType: Capability
+      FixDetails:
+        Capabilities:
+          - allowElevation
+      Reference: https://docs.microsoft.com/en-us/windows/uwp/packaging/app-capability-declarations#:~:text=or%20Visual%20Studio.-,Elevation,-The%20allowElevation%20restricted
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 20H2
+
+MinimumOSBuild: 19042.685
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2021.709.0
+
+AcceleratorVersion: 1.0.0

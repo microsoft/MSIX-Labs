@@ -1,0 +1,32 @@
+# MSIX Conversion Accelerator
+PackageName: AVG PC TuneUp
+
+PackageVersion: 20.7.2223.0
+
+PublisherName: AVG Technologies
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: MSIX Packaging Tool failed to convert to MSIX stating a service is running outside the package.
+    Fix:
+      FixType: Services
+      FixDetails:
+        Exclude:
+          - CleanupPSvc
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 20H2
+
+MinimumOSBuild: 19042.685
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2020.1219.0
+
+AcceleratorVersion: 1.0.0

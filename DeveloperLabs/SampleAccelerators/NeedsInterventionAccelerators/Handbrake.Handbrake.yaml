@@ -1,0 +1,33 @@
+# MSIX Conversion Accelerator
+PackageName: Handbrake
+
+PackageVersion: 1.5.1
+
+PublisherName: Handbrake
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: .net runtime needs to be packaged along with the app
+    Fix:
+      FixType: Dependency
+      FixDetails:
+        Dependencies:
+          - .Net Desktop Runtime
+        Reference: https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.4-windows-x64-installer
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 21H1
+
+MinimumOSBuild: 19044.1288
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2022.801.0
+
+AcceleratorVersion: 1.0.0

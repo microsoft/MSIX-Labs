@@ -1,0 +1,45 @@
+# MSIX Conversion Accelerator
+PackageName: DBeaver 22.2.5 (current user)
+
+PackageVersion: 22.2.5
+
+PublisherName: DBeaver Corp
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: DLL not found
+    Fix:
+      FixType: LoaderSearchPathOverride
+      FixDetails:
+        FolderPaths:
+        - VFS/Local AppData/DBeaver/jre/bin
+      Reference: https://docs.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap6-loadersearchpathoverride
+
+  - SequenceNumber: 2
+    Issue:
+      Description: Unable to write to VFS Folder
+    Fix:
+      FixType: InstalledLocationVirtualization
+      FixDetails:
+        UpdateActionsAttributes:
+            ModifiedItems: keep
+            DeletedItems: reset
+            AddedItems: keep
+      Reference: https://docs.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap10-installedLocationVirtualization    
+
+Edition: Windows 11 Enterprise
+
+MinimumOSVersion: 21H1
+
+MinimumOSBuild: 19044.1288
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2022.718.0
+
+AcceleratorVersion: 1.0.0

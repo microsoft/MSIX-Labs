@@ -1,0 +1,33 @@
+# MSIX Conversion Accelerator
+PackageName: OpenWebStart 1.6.0
+
+PackageVersion: 1.6.0
+
+PublisherName: Karakun AG
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+    - SequenceNumber: 1
+      Issue:
+        Description: DLL not found 
+      Fix:
+        FixType: LoaderSearchPathOverride
+        Reference: https://docs.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap6-loadersearchpathoverride
+        FixDetails:
+          FolderPaths:
+          - VFS/ProgramFilesX64/OpenWebStart/jre/bin
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 21H1
+
+MinimumOSBuild: 19044.1288
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2022.330.0
+
+AcceleratorVersion: 1.0.0
