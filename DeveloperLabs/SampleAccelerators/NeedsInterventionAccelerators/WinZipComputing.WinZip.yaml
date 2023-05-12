@@ -1,0 +1,37 @@
+# MSIX Conversion Accelerator
+PackageName: WinZip 27.0
+
+PackageVersion: 27.0.15240
+
+PublisherName: Corel Corporation
+
+EligibleForConversion: Yes
+
+ConversionStatus: Converted With Issues
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: Shortcut not captured
+      Reference: https://microsoft.visualstudio.com/DefaultCollection/OS/_workitems/edit/35877020
+    Fix:
+      FixType: EntryPoint 
+      FixDetails:
+        EntryPointIssue: ShortcutNotCaptured
+        Solution:
+          - Launch from start menu
+
+AdditionalComments:
+  - SHort cuts are not captured , App needs to be launched from start menu
+
+Edition: Windows 10 Enterprise
+
+MinimumOSVersion: 20H2
+
+MinimumOSBuild: 19042.685
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2020.1219.0
+
+AcceleratorVersion: 1.0.0

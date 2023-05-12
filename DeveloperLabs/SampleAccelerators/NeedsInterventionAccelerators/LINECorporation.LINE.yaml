@@ -1,0 +1,60 @@
+# MSIX Conversion Accelerator
+PackageName: LINE
+
+PackageVersion: 7.13.2.2877
+
+PublisherName: LINE Corporation
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: Required permissions were not granted to the VFS folder and launcher.exe was not available during msix launch
+    Fix:
+      FixType: InstallationPath
+      Reference: https://docs.microsoft.com/en-us/windows/msix/packaging-tool/create-app-package#package-information
+      FixDetails:
+        Path: C:/Users/User/AppData/Local
+  
+  - SequenceNumber: 2
+    Issue:
+      Description: There were create file errors in process monitor
+    Fix:
+      FixType: PSF
+      Reference: https://github.com/Microsoft/MSIX-PackageSupportFramework/tree/master/fixups/FileRedirectionFixup
+      FixDetails:
+        PSFConfig:
+          applications:
+            - id: LINELAUNCHER
+              executable: LINE/bin/LineLauncher.exe
+              workingDirectory: LINE/bin/
+          processes:
+            - executable: LineLauncher
+              fixups:
+                - dll: FileRedirectionFixup.dll
+                  config:
+                    redirectedPaths:
+                      packageRelative:
+                        - base: LINE/Data/
+                          patterns:
+                            - .*\.tst
+                        - base: LINE/bin/
+                          patterns:
+                            - .*
+
+MinimumPSFVersion: 1.0.200410.1
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 20H2
+
+MinimumOSBuild: 19042.1237
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2021.709.0
+
+AcceleratorVersion: 1.0.0

@@ -1,0 +1,47 @@
+# MSIX Conversion Accelerator
+PackageName: BluebeamRevu
+
+PackageVersion: 21.0.20
+
+PublisherName: Bluebeam, Inc.
+
+EligibleForConversion: Yes
+
+ConversionStatus: Successful - Fix Required
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: Folder Creation inside package failed
+    Fix:
+      FixType: PSF
+      FixDetails:
+        PSFConfig:
+          applications:
+            - id: REVU
+              executable: VFS/ProgramFilesX64/Bluebeam Software/Bluebeam Revu/21/Revu/Revu.exe
+          processes:
+            - executable: Revu
+              fixups:
+                - dll: FileRedirectionFixup.dll
+                  config:
+                    redirectedPaths:
+                      packageRelative:
+                        - base: VFS/Common AppData/Bluebeam Software/Bluebeam Revu/21/
+                          patterns:
+                            - SummaryTemplates.* 
+      Reference: https://github.com/Microsoft/MSIX-PackageSupportFramework/tree/master/fixups/FileRedirectionFixup
+
+MinimumPSFVersion: 1.0.220926.1
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 21H2
+
+MinimumOSBuild: 19044.1288
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2022.330.0
+
+AcceleratorVersion: 1.0.0

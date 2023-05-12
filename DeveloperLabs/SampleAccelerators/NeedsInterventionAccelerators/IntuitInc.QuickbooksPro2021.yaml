@@ -1,0 +1,60 @@
+# MSIX Conversion Accelerator
+PackageName: Quickbooks Pro 2021
+
+PackageVersion: 4.1.100.1332
+
+PublisherName: Intuit, Inc.
+
+EligibleForConversion: Yes
+
+ConversionStatus: Failed
+
+RemediationApproach:
+  - SequenceNumber: 1
+    Issue:
+      Description: Registry errors in Procmon
+    Fix:
+      FixType: Capability
+      FixDetails:
+        Capabilities:
+          - Run as Administrator
+  
+  - SequenceNumber: 2
+    Issue:
+      Description: App not launching on installation
+    Fix:
+      FixType: Dependency
+      FixDetails:
+        Dependencies:
+          - C++ 2008 Redistributable x86
+      Reference: https://www.microsoft.com/en-in/download/confirmation.aspx?id=26368
+
+  - SequenceNumber: 3
+    Issue:
+      Description: Create file error for a .dat file
+    Fix:
+      FixType: Extension
+      FixDetails:
+        Extensions:
+          - installedLocationVirtualization
+      Reference: https://docs.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap10-installedlocationvirtualization
+
+  - SequenceNumber: 4
+    Issue:
+      Description: Could not initialize license properties. [Error 3371, Status Code -11118]
+
+AdditionalComments:
+  - For the 3371 error, installing the Quickbooks toolhub and running the 3371 error fix did not work.
+  - Registry Issues also showing up at the last stage. 
+
+Edition: Windows 10 Enterprise Evaluation
+
+MinimumOSVersion: 20H2
+
+MinimumOSBuild: 19042.685
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2021.709.0
+
+AcceleratorVersion: 1.0.0
