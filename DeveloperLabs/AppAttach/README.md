@@ -13,7 +13,7 @@ AppAttachExtension automates the steps involved in this conversion and deploymen
 
  
 ## Related material
-- App Attach from Visual Studio: https://learn.microsoft.com/en-us/windows/msix/desktop/appattachfromvisualstudio
+- App Attach from Visual Studio: https://learn.microsoft.com/en-us/windows/msix/desktop/app-attach-from-visualstudio
 - App Attach Extension User Guide: https://github.com/microsoft/MSIX-Labs/blob/master/DeveloperLabs/AppStreaming/AppAttachExtensionWiki.pdf
 
 
