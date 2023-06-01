@@ -3,7 +3,7 @@ This section of MSIX Developer Labs provides a sample accelerator that can be us
 
 ## What are Accelerators?
 
-An Accelerator provides an efficient way to capture important information regarding conversion of legacy applications to MSIX format
+An Accelerator provides an efficient way for conversion of legacy applications to MSIX format. 
 Read more about [Accelerators](https://learn.microsoft.com/windows/msix/toolkit/accelerators) here. 
 
 ## Sample Accelerator
